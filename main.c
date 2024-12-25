@@ -2,6 +2,16 @@
 
 #define TILE_SIZE 32
 
+#define W_KEY        119
+#define S_KEY        115
+#define A_KEY        97
+#define D_KEY        100
+#define LEFT_ARROW   65361
+#define RIGHT_ARROW  65363
+#define ESC          65307
+
+
+
 void ft_init_struct_game(t_base *game)
 {
     int i;
@@ -23,18 +33,66 @@ void ft_init_struct_game(t_base *game)
     }
 }
 
-int key_press(int key, t_base *game)
+int key_press(int keycode, t_base *game)
 {
-    if (key == 65307)
+    if (keycode == ESC)
         exit(0);
+    if (keycode == W_KEY)
+        game->s_keys->w = 1;
+    else if (keycode == A_KEY)
+        game->s_keys->a = 1;
+    else if (keycode == S_KEY)
+        game->s_keys->s = 1;
+    else if (keycode == D_KEY)
+        game->s_keys->d = 1;
+    else if (keycode == LEFT_ARROW)
+        game->s_keys->left = 1;
+    else if (keycode == RIGHT_ARROW)
+        game->s_keys->right = 1;
     return (0);
 }
+
+int key_release(int keycode, t_base *game)
+{
+    if (keycode == W_KEY)
+        game->s_keys->w = 0;
+    else if (keycode == A_KEY)
+        game->s_keys->a = 0;
+    else if (keycode == S_KEY)
+        game->s_keys->s = 0;
+    else if (keycode == D_KEY)
+        game->s_keys->d = 0;
+    else if (keycode == LEFT_ARROW)
+        game->s_keys->left = 0;
+    else if (keycode == RIGHT_ARROW)
+        game->s_keys->right = 0;
+    return (0);
+}
+
+void initialize_keys(t_base *game)
+{
+    game->s_keys = malloc(sizeof(t_keys));
+    if (!game->s_keys)
+    {
+        perror("Error allocating memory for keys");
+        exit(1);
+    }
+
+    game->s_keys->w = 0;
+    game->s_keys->s = 0;
+    game->s_keys->a = 0;
+    game->s_keys->d = 0;
+    game->s_keys->left = 0;
+    game->s_keys->right = 0;
+}
+
+
 
 void my_mlx_pixel_put(t_base *game, int x, int y, int color)
 {
     char *dst;
 
-    if (x < 0 || x >= game->map_width * 32 || y < 0 || y >= game->map_height * 32)
+    if (x < 0 || x >= game->map_width * TILE_SIZE || y < 0 || y >= game->map_height * TILE_SIZE)
         return ;
     dst = game->addr + (y * game->line_length + x * (game->bpp / 8));
     
@@ -87,10 +145,10 @@ void draw_map(t_base *game)
         }
         i++;
         y = y + TILE_SIZE; // Move to the next tile position vertically
+    
     }
 }
  
-
 
 int main(int ac, char **av)
 {
@@ -103,16 +161,19 @@ int main(int ac, char **av)
     ft_init_struct_game(&game);
     parsing(&game, av[1]);
     game.mlx = mlx_init();
-    game.win = mlx_new_window(game.mlx, game.map_width * 32, game.map_height * 32, "Cub3D");
-    game.img = mlx_new_image(game.mlx, game.map_width * 32, game.map_height * 32);
+    game.win = mlx_new_window(game.mlx, game.map_width * TILE_SIZE, game.map_height * TILE_SIZE, "Cub3D");
+    game.img = mlx_new_image(game.mlx, game.map_width * TILE_SIZE, game.map_height * TILE_SIZE);
     game.addr = mlx_get_data_addr(game.img, &game.bpp, &game.line_length, &game.endian);
+    initialize_keys(&game);
     mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-    if (game.map_height * TILE_SIZE > game.map_height * 32 || game.map_width * TILE_SIZE > game.map_width * 32)
+    mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+    if (game.map_height * TILE_SIZE > game.map_height * TILE_SIZE|| game.map_width * TILE_SIZE > game.map_width * TILE_SIZE)
     {
         printf("Map size exceed window\n");
         exit(1);
     }
     draw_map(&game);
     mlx_put_image_to_window(game.mlx, game.win, game.img, 0, 0);
+    mlx_loop_hook(game.mlx, game_loop, &game);
     mlx_loop(game.mlx);
 }

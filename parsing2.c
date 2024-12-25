@@ -175,6 +175,12 @@ int parse_map(t_base *game, int fd)
         exit(1);
     }
     pad_map(game);
+    if (game == NULL)
+    {
+        ft_printf_err("Error\nMap doens't valid\n");
+        free_split(game->map);
+        exit(1);
+    }
     validate_map(game); // Validate the map structure
     return (0);
 }

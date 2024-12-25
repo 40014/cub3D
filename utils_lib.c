@@ -7,6 +7,19 @@ int	ft_isdigit(int i)
 	return (1);
 }
 
+void	*ft_memset(void *dest, int c, size_t count)
+{
+	unsigned char	*p;
+
+	p = (unsigned char *)dest;
+	while (count > 0)
+	{
+		p[count - 1] = c;
+		count--;
+	}
+	return (dest);
+}
+
 int	ft_atoi(const char *str)
 {
 	int	i;

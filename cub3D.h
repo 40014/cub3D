@@ -8,35 +8,38 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-// typedef struct cub
-// {
-//     int     fd;
-//     char	*readmap;
-//     char    **map;
-    
-// }   t_base;
+typedef struct s_keys
+{
+    int w;
+    int s;
+    int a;
+    int d;
+    int left;
+    int right;
+} t_keys;
 
 typedef struct cub
 {
     int     fd;
     char    *readmap;
     char    **map;
-    int     map_width;      // Map width
-    int     map_height;     // Map height
-    int     player_x;       // Player x position
-    int     player_y;       // Player y position
-    char    player_dir;     // Player direction (N, S, E, W)
-    char    *textures[4];   // NO, SO, WE, EA
-    int     floor_color;    // RGB value packed into an integer
-    int     ceiling_color;  // RGB value packed into an integer
+    int     map_width;      
+    int     map_height;     
+    int     player_x;       
+    int     player_y;       
+    char    player_dir;     
+    char    *textures[4];   
+    int     floor_color;    
+    int     ceiling_color;
 
-    void    *mlx;           // Pointer to the MiniLibX connection
-    void    *win;           // Pointer to the MiniLibX window
-    void    *img;           // Pointer to the image
-    char    *addr;          // Address of the image data
-    int     bpp;            // Bits per pixel
-    int     line_length;    // Number of bytes in a row
-    int     endian;         // Endian type
+    void    *mlx;           
+    void    *win;          
+    void    *img;           
+    char    *addr;          
+    int     bpp;           
+    int     line_length;    
+    int     endian;
+    t_keys  *s_keys;
 } t_base;
 
 size_t  ft_strlen2(const char *s);
@@ -54,5 +57,9 @@ char	*ft_strdup(const char *s1);
 int parse_color(char *line);
 char	*ft_strtrim(char const *s1, char const *set);
 int	ft_isdigit(int i);
+void	*ft_memset(void *dest, int c, size_t count);
+int game_loop(t_base *game);
+void draw_map(t_base *game);
+void draw_square(t_base *game, int x, int y, int color);
 
 #endif

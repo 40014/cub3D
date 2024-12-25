@@ -1,5 +1,5 @@
 #include "cub3D.h"
-#include <string.h>
+
 int ft_isdigit_str(char *str)
 {
     int i;
