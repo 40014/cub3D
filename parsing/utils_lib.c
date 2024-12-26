@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../cub.h"
 
 int	ft_isdigit(int i)
 {

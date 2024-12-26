@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../cub.h"
 
 void	free_split(char **str)
 {

@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../cub.h"
 
 
 void validate_map(t_base *game)
