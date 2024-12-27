@@ -17,7 +17,6 @@ void draw_line2(t_base *game, int line_lenght, int color)
         y = (int)y1 / CUB_SIZE;
         x = (int)x1 / CUB_SIZE;
         my_mlx_pixel_put(game, x1, y1, color);
-       // mlx_pixel_put( player_infos->mlx_ptrs->mlx_ptr, player_infos->win, x1,y1, color);
         line_lenght--;
     }
 }
@@ -59,10 +58,7 @@ void find_wall_hit_h_v(t_player_info *player_infos)
 
    // which_element(player_infos);
     angle_of_ray = player_infos->ray_rotation_angle * 180/M_PI;
-    
     check_straight_ray(player_infos, angle_of_ray);
-      
-     
     if (angle_of_ray > 0 && angle_of_ray < 90)
     {
         find_inters_down_right_h(player_infos);
@@ -87,6 +83,7 @@ void find_wall_hit_h_v(t_player_info *player_infos)
     }
     else if (angle_of_ray > 270 && angle_of_ray < 360)
     {
+        
         find_inters_up_right_h(player_infos);
         find_inters_up_right_v(player_infos);
         find_nearest_wall_hit_up_right(player_infos);
@@ -107,19 +104,16 @@ void cast_rays(t_base *game)
     int end_angle_of_ray;
     int angle_of_ray;
     int normal_angle;
-    int i;
-
 
     game->player_infos->map = game->map;
     game->player_infos->map_width = game->map_width;
     game->player_infos->map_height = game->map_height;
     start_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) - FOV/2;
     end_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) + FOV/2;
-    i = 0;
     angle_of_ray = start_angle_of_ray;
     while (angle_of_ray <= end_angle_of_ray)
     {
-        normal_angle = (angle_of_ray + 360) % 360;
+        normal_angle = ((int)angle_of_ray + 360) % 360;
         game->player_infos->ray_rotation_angle = normal_angle * (M_PI / 180);
         find_wall_hit_h_v(game->player_infos);
         draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff000);

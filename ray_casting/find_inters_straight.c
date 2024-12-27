@@ -12,6 +12,7 @@ void find_inters_right(t_player_info *player_infos)
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] == '1')
     {
         player_infos->wall_hit->ni = isteps;
+        player_infos->wall_hit->nj = player_infos->j;
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1')
@@ -21,7 +22,10 @@ void find_inters_right(t_player_info *player_infos)
         x = ((int)isteps) / CUB_SIZE;
     }
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width)
+    {
         player_infos->wall_hit->ni = isteps;
+        player_infos->wall_hit->nj = player_infos->j;
+    }
 }
 
 void find_inters_down(t_player_info *player_infos)
@@ -36,6 +40,7 @@ void find_inters_down(t_player_info *player_infos)
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] == '1')
     {
         player_infos->wall_hit->nj = jsteps;
+        player_infos->wall_hit->ni = player_infos->i;
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1')
@@ -45,7 +50,10 @@ void find_inters_down(t_player_info *player_infos)
         y = ((int)jsteps) / CUB_SIZE;
     }
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width)
+    {
         player_infos->wall_hit->nj = jsteps;
+        player_infos->wall_hit->ni = player_infos->i;
+    }
 
 
 }
@@ -62,6 +70,7 @@ void find_inters_left(t_player_info *player_infos)
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] == '1')
     {
         player_infos->wall_hit->ni = isteps;
+        player_infos->wall_hit->nj = player_infos->j;
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1')
@@ -71,7 +80,10 @@ void find_inters_left(t_player_info *player_infos)
         x = ((int)isteps - 1) / CUB_SIZE;
     }
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width)
+    {
         player_infos->wall_hit->ni = isteps;
+        player_infos->wall_hit->nj = player_infos->j;
+    }
     
 
 }
@@ -82,12 +94,13 @@ void find_inters_up(t_player_info *player_infos)
     float  jsteps;
     int length;
    
-    jsteps = ((int)player_infos->j / CUB_SIZE) * CUB_SIZE;    
+    jsteps = ((int)player_infos->j / CUB_SIZE) * CUB_SIZE;
     x = ((int)player_infos->i) / CUB_SIZE;
     y = ((int)jsteps - 1) / CUB_SIZE;
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] == '1')
     {
         player_infos->wall_hit->nj = jsteps;
+        player_infos->wall_hit->ni = player_infos->i;
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1')
@@ -97,6 +110,9 @@ void find_inters_up(t_player_info *player_infos)
         y = ((int)jsteps -1) / CUB_SIZE;
     }
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width)
+    {
         player_infos->wall_hit->nj = jsteps;
+        player_infos->wall_hit->ni = player_infos->i;
+    }
 
 }

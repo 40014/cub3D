@@ -80,6 +80,8 @@ int game_loop(t_base *game)
         if (game->player_infos->rotation_angle > (360 * (M_PI / 180)))
               game->player_infos->rotation_angle -= 360 * (M_PI / 180);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     if(game->s_keys->left)
     {
@@ -87,6 +89,8 @@ int game_loop(t_base *game)
         if (game->player_infos->rotation_angle < 0)
               game->player_infos->rotation_angle += 360 * (M_PI / 180);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     if (game->s_keys->w)
     {
@@ -94,6 +98,8 @@ int game_loop(t_base *game)
         game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle) * game->player_infos->move_speed;
         player_new_pos_up(game->player_infos);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     if (game->s_keys->s)
     {
@@ -101,6 +107,8 @@ int game_loop(t_base *game)
         game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle) * (game->player_infos->move_speed * -1);
         player_new_pos(game->player_infos);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
 
     if (game->s_keys->d)
@@ -110,6 +118,8 @@ int game_loop(t_base *game)
         if (game->player_infos->map[(int)(game->player_infos->new_j / CUB_SIZE)][(int)(game->player_infos->new_i / CUB_SIZE)] != '1')
             player_new_pos(game->player_infos);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
 
     if (game->s_keys->a)
@@ -119,9 +129,10 @@ int game_loop(t_base *game)
         if (game->player_infos->map[(int)(game->player_infos->new_j / CUB_SIZE)][(int)(game->player_infos->new_i / CUB_SIZE)] != '1')
             player_new_pos_up(game->player_infos);
         draw_map(game);
+        cast_rays(game);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
-    cast_rays(game);
-    mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
+   
     return(0);
 }
 

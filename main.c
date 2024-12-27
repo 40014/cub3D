@@ -8,6 +8,7 @@ int main(int ac, char **av)
     t_mlx_ptrs mlx_ptrs;
     t_player_info player_infos;
     t_base game;
+    t_wall_hit wall_hit;
 
     if (ac != 2)
         return (1);
@@ -25,12 +26,13 @@ int main(int ac, char **av)
     mlx_hook(mlx_ptrs.win, 3, 1L << 1, key_release, &game);
     draw_map(&game);
     // init_player_infos
+    player_infos.wall_hit = &wall_hit;
     player_infos.map = game.map;
     player_infos.map_width = game.map_width;
     player_infos.map_height = game.map_height;
     player_infos.rotation_angle = (M_PI / 180) * 0;
-    player_infos.rotation_speed = 3 * (M_PI / 180);
-    player_infos.move_speed = 15;
+    player_infos.rotation_speed = 0.5 * (M_PI / 180);
+    player_infos.move_speed = 0.5;
     game.player_infos = &player_infos;
     get_player_pos(&player_infos);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);

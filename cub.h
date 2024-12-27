@@ -11,11 +11,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 64
+# define CUB_SIZE 32     
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 20
 # endif
 
+#define EPSILON 0.0001
 # define FOV 60
 # define LINE 20
 #define TILE_SIZE 64
@@ -158,6 +159,8 @@ void get_player_pos(t_player_info *player_infos);
 int game_loop(t_base *game);
 void player_new_pos_up(t_player_info *player_infos);
 void player_new_pos(t_player_info *player_infos);
+int check_the_edge2(t_player_info *player_infos, int j, int i);
+int check_the_edge1(t_player_info *player_infos, int j, int i);
 
 
 
