@@ -7,7 +7,6 @@ int check_the_edge1(t_player_info *player_infos, int j, int i)
 
     y = j / CUB_SIZE;
     x = i / CUB_SIZE;
-    printf("y : %d                 x : %d\n", y, x);  
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width)
     {
         y = (j - 3) / CUB_SIZE;
