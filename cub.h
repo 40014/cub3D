@@ -11,14 +11,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 32     
+# define CUB_SIZE 64     
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 20
 # endif
 
-#define EPSILON 0.0001
-# define FOV 60
-# define LINE 20
+# define FOV 360
 #define TILE_SIZE 64
 #define W_KEY        119
 #define S_KEY        115
@@ -46,30 +44,33 @@ typedef  struct mlx
 
 typedef struct hit
 {
-    int hi;
-    int hj;
-    int vj;
-    int vi;
-    int ni;
-    int nj;
-    int lenght;
+    double hi;
+    double hj;
+    double vj;
+    double vi;
+    double ni;
+    double nj;
+    double lenght;
+    int    hit_direction;
+
 } t_wall_hit;
 
 typedef struct player_info
 {
-    float         i;
-    float         j;  
-    float         new_i;
-    float         new_j;
+    double         i;
+    double         j;  
+    double         new_i;
+    double         new_j;
     int         move_direction;
     int         turn_direction;
-    float       rotation_angle;
-    float       ray_rotation_angle;
-    float       move_speed;
-    float       rotation_speed;
+    double       rotation_angle;
+    double       ray_rotation_angle;
+    double       move_speed;
+    double       rotation_speed;
     int         fov_lenght;
         int     map_width;      
-    int     map_height; 
+    int     map_height;
+    int     check_one_cub;
     int         color;
      char    **map;
     t_wall_hit  *wall_hit;
@@ -161,6 +162,8 @@ void player_new_pos_up(t_player_info *player_infos);
 void player_new_pos(t_player_info *player_infos);
 int check_the_edge2(t_player_info *player_infos, int j, int i);
 int check_the_edge1(t_player_info *player_infos, int j, int i);
+int find_wall_hit_h_v(t_player_info *player_infos);
+double calculate_length(t_player_info *player_infos, double x, double y);
 
 
 
