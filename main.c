@@ -36,6 +36,7 @@ int main(int ac, char **av)
     player_infos.move_speed = 10;
     game.player_infos = &player_infos;
     get_player_pos(&player_infos);
+    cast_rays(&game);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
     mlx_loop_hook(game.mlx_ptrs->mlx_ptr, game_loop, &game);
     mlx_loop(mlx_ptrs.mlx_ptr);

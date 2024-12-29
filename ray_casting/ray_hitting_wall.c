@@ -98,6 +98,7 @@ int find_wall_hit_h_v(t_player_info *player_infos)
 }
 
 
+
 void cast_rays(t_base *game)
 {
     double start_angle_of_ray;
@@ -109,17 +110,19 @@ void cast_rays(t_base *game)
     game->player_infos->map = game->map;
     game->player_infos->map_width = game->map_width;
     game->player_infos->map_height = game->map_height;
-    game->player_infos->ray_rotation_angle = game->player_infos->rotation_angle;
+   // game->player_infos->ray_rotation_angle = game->player_infos->rotation_angle;
     start_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) - FOV/2;
     end_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) + FOV/2;
     angle_of_ray = start_angle_of_ray;
+    int count = 1;
+    double ngl = (double)(FOV * (M_PI / 180) / (double)(game->map_width * CUB_SIZE));
     while (angle_of_ray <= end_angle_of_ray)  
     {
         game->player_infos->wall_hit->hit_direction = 0;
         normal_angle = ((int)angle_of_ray + 360) % 360;
         game->player_infos->ray_rotation_angle = normal_angle * (M_PI / 180);
         find_wall_hit_h_v(game->player_infos);
-        draw_line2(game, game->player_infos->wall_hit->lenght, 0xff0000);
+            draw_line2(game, game->player_infos->wall_hit->lenght, 0xff0000);
         angle_of_ray++;
     }
    

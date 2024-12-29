@@ -16,8 +16,9 @@
 # define BUFFER_SIZE 20
 # endif
 
-# define FOV 360
+# define FOV 60
 #define TILE_SIZE 64
+# define DIS_WALL 1 
 #define W_KEY        119
 #define S_KEY        115
 #define A_KEY        97
@@ -67,8 +68,9 @@ typedef struct player_info
     double       ray_rotation_angle;
     double       move_speed;
     double       rotation_speed;
+    double      real_angle;
     int         fov_lenght;
-        int     map_width;      
+    int     map_width;      
     int     map_height;
     int     check_one_cub;
     int         color;
