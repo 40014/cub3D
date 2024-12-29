@@ -17,8 +17,10 @@
 # endif
 
 # define FOV 60
+# define P_SPEED 10 // 0.1
+# define R_SPEED 5  // 0.1
 #define TILE_SIZE 64
-# define DIS_WALL 1 
+# define DIS_WALL 2 
 #define W_KEY        119
 #define S_KEY        115
 #define A_KEY        97

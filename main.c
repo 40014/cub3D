@@ -32,8 +32,8 @@ int main(int ac, char **av)
     player_infos.map_width = game.map_width;
     player_infos.map_height = game.map_height;
     player_infos.rotation_angle = (M_PI / 180) * 0;
-    player_infos.rotation_speed = 5 * (M_PI / 180);
-    player_infos.move_speed = 10;
+    player_infos.rotation_speed = R_SPEED * (M_PI / 180);
+    player_infos.move_speed = P_SPEED;
     game.player_infos = &player_infos;
     get_player_pos(&player_infos);
     cast_rays(&game);
