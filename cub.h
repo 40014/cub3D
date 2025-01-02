@@ -16,18 +16,22 @@
 # define BUFFER_SIZE 20
 # endif
 
+
+# define SCREEN_SIZE 800
+# define SCREEN_HEIGHT 800
 # define FOV 60
-# define P_SPEED 10 // 0.1
-# define R_SPEED 5  // 0.1
-#define TILE_SIZE 64
-# define DIS_WALL 2 
-#define W_KEY        119
-#define S_KEY        115
-#define A_KEY        97
-#define D_KEY        100
-#define LEFT_ARROW   65361
-#define RIGHT_ARROW  65363
-#define ESC          65307
+# define P_SPEED  1
+# define R_SPEED  0.5
+# define TILE_SIZE 32
+# define COLOME_SIZE 1
+# define DIS_WALL 4
+# define W_KEY        119
+# define S_KEY        115
+# define A_KEY        97
+# define D_KEY        100
+# define LEFT_ARROW   65361
+# define RIGHT_ARROW  65363
+# define ESC          65307
 
 //# define M_PI 3.14159265358979323846
 

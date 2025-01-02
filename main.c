@@ -16,22 +16,22 @@ int main(int ac, char **av)
     ft_init_struct_game(&game);
     parsing(&game, av[1]);
     mlx_ptrs.mlx_ptr = mlx_init();
-    mlx_ptrs.win = mlx_new_window(mlx_ptrs.mlx_ptr, game.map_width * CUB_SIZE, game.map_height * CUB_SIZE, "Cub3D");
-    mlx_ptrs.img = mlx_new_image(mlx_ptrs.mlx_ptr, game.map_width * CUB_SIZE, game.map_height * CUB_SIZE);
+    mlx_ptrs.win = mlx_new_window(mlx_ptrs.mlx_ptr, SCREEN_SIZE, SCREEN_HEIGHT, "Cub3D");
+    mlx_ptrs.img = mlx_new_image(mlx_ptrs.mlx_ptr, SCREEN_SIZE, SCREEN_HEIGHT);
     mlx_ptrs.addr = mlx_get_data_addr(mlx_ptrs.img, &mlx_ptrs.bpp, &mlx_ptrs.line_length, &mlx_ptrs.endian);
     initialize_keys(&game);
     // draw map
     game.mlx_ptrs = &mlx_ptrs;
     mlx_hook(mlx_ptrs.win, 2, 1L << 0, key_press, &game);
     mlx_hook(mlx_ptrs.win, 3, 1L << 1, key_release, &game);
-    draw_map(&game);
+    //draw_map(&game);
     // init_player_infos
     player_infos.wall_hit = &wall_hit;
     player_infos.check_one_cub = 0;
     player_infos.map = game.map;
     player_infos.map_width = game.map_width;
     player_infos.map_height = game.map_height;
-    player_infos.rotation_angle = (M_PI / 180) * 0;
+    player_infos.rotation_angle = (M_PI / 180) * 180 ;
     player_infos.rotation_speed = R_SPEED * (M_PI / 180);
     player_infos.move_speed = P_SPEED;
     game.player_infos = &player_infos;
