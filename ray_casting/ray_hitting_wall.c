@@ -214,15 +214,20 @@ void cast_rays(t_base *game)
 
     distance_projection = (SCREEN_SIZE / 2) / (tan((FOV / 2) * (M_PI / 180)));
     increment = FOV * (M_PI / 180) /SCREEN_SIZE;
-    game->player_infos->wall_hit->hit_direction = 0;
-    while (colome < SCREEN_SIZE) {
+   
+    while (colome < SCREEN_SIZE)
+    {
+         game->player_infos->wall_hit->hit_direction = 0;
         game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
         find_wall_hit_h_v(game->player_infos);
         correct_lenght = game->player_infos->wall_hit->lenght * cos(game->player_infos->ray_rotation_angle - game->player_infos->rotation_angle );
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
         if (wall_height > SCREEN_HEIGHT)
             wall_height = SCREEN_HEIGHT;
-        draw_wall_line(game, wall_height, colome, 0xffffff);
+        if (game->player_infos->wall_hit->hit_direction == 1)
+            draw_wall_line(game, wall_height, colome, 0xC0C0C0);
+        else
+            draw_wall_line(game, wall_height, colome, 0xffffff);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
         

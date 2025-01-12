@@ -45,7 +45,7 @@ void find_inters_up_right_v(t_player_info *player_infos)
     player_infos->wall_hit->vj = -1;
     isteps = ((int)player_infos->i / CUB_SIZE) * CUB_SIZE + CUB_SIZE;
     jsteps = player_infos->j - (isteps - player_infos->i) * fabs(tan(player_infos->ray_rotation_angle));
-    y = ((int)jsteps - 1) / CUB_SIZE;
+    y = ((int)jsteps ) / CUB_SIZE;
     x = ((int)isteps ) / CUB_SIZE;
    if ((y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] == '1')
         || check_the_edge2(player_infos, jsteps, isteps) == 1)
@@ -59,7 +59,7 @@ void find_inters_up_right_v(t_player_info *player_infos)
     {
         isteps += CUB_SIZE;
         jsteps -= CUB_SIZE * fabs(tan(player_infos->ray_rotation_angle));
-        y = ((int)jsteps - 1) / CUB_SIZE;
+        y = ((int)jsteps ) / CUB_SIZE;
         x = ((int)isteps ) / CUB_SIZE;
     }
     if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->check_one_cub != 1)

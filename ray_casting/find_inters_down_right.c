@@ -24,7 +24,6 @@ int check_the_edge1(t_player_info *player_infos, int j, int i)
     return(0);
 }
 
-
 void find_inters_down_right_h(t_player_info *player_infos)
 {
     int x, y;

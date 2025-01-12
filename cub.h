@@ -11,20 +11,15 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 64     
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
-# endif
-
-
-# define SCREEN_SIZE 800
-# define SCREEN_HEIGHT 800
+# define CUB_SIZE 32
+# define SCREEN_SIZE 1000
+# define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  1
+# define P_SPEED  2
 # define R_SPEED  0.5
 # define TILE_SIZE 32
 # define COLOME_SIZE 1
-# define DIS_WALL 4
+# define DIS_WALL 2
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
