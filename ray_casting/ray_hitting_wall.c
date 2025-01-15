@@ -177,10 +177,20 @@ void cast_rays(t_base *game)
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
         if (wall_height > SCREEN_HEIGHT)
             wall_height = SCREEN_HEIGHT;
-        if (game->player_infos->wall_hit->hit_direction == 1)
-            draw_wall_line(game, wall_height, colome, 0xC0C0C0);
+        if (game->player_infos->wall_hit->hit_direction == 0)
+        {
+            if (game->player_infos->ray_rotation_angle >= 0 && game->player_infos->ray_rotation_angle < M_PI)
+                draw_wall_line(game, wall_height, colome, 0xff0000);
+            else
+                draw_wall_line(game, wall_height, colome, 0x0000ff);
+        }       
         else
-           draw_wall_line(game, wall_height, colome, 0xffffff);
+        {
+            if (game->player_infos->ray_rotation_angle >= M_PI / 2 && game->player_infos->ray_rotation_angle < 3 * (M_PI / 2))
+                draw_wall_line(game, wall_height, colome, 0xfff000);
+            else
+                draw_wall_line(game, wall_height, colome, 0xA020F0);
+        }
         //  draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff0000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
