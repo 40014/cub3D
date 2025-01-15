@@ -11,15 +11,15 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 32
-# define SCREEN_SIZE 1000
-# define SCREEN_HEIGHT 1000
+# define CUB_SIZE 64
+# define SCREEN_SIZE 2048
+# define SCREEN_HEIGHT 1900
 # define FOV 60
-# define P_SPEED  2
-# define R_SPEED  0.5
+# define P_SPEED  20
+# define R_SPEED  10
 # define TILE_SIZE 32
 # define COLOME_SIZE 1
-# define DIS_WALL 2
+# define DIS_WALL 4
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
@@ -72,6 +72,7 @@ typedef struct player_info
     double      real_angle;
     int         fov_lenght;
     int     map_width;      
+    int colome;
     int     map_height;
     int     check_one_cub;
     int         color;
@@ -161,9 +162,11 @@ void find_nearest_wall_hit_down_right(t_player_info *player_infos);
 void find_nearest_wall_hit_up_left(t_player_info *player_infos);
 void get_player_pos(t_player_info *player_infos);
 int game_loop(t_base *game);
+void draw_line2(t_base *game, double line_lenght, int color);
 void player_new_pos_up(t_player_info *player_infos);
 void player_new_pos(t_player_info *player_infos);
 int check_the_edge2(t_player_info *player_infos, int j, int i);
+double normalize_angle(double angle);
 int check_the_edge1(t_player_info *player_infos, int j, int i);
 int find_wall_hit_h_v(t_player_info *player_infos);
 double calculate_length(t_player_info *player_infos, double x, double y);

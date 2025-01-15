@@ -1,5 +1,8 @@
 #include "../cub.h"
 
+
+
+
 void player_new_pos(t_player_info *player_infos)
 {
     int x;
@@ -124,15 +127,13 @@ int game_loop(t_base *game)
     if (game->s_keys->right)
     {
         game->player_infos->rotation_angle += game->player_infos->rotation_speed;
-        if (game->player_infos->rotation_angle > 2 * M_PI)
-            game->player_infos->rotation_angle -= 2 * M_PI;
+        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
         i = 1;
     }
     if (game->s_keys->left)
     {
         game->player_infos->rotation_angle -= game->player_infos->rotation_speed;
-        if (game->player_infos->rotation_angle < 0)
-            game->player_infos->rotation_angle += 2 * M_PI;
+        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
         i = 1;
     }
 
@@ -145,13 +146,13 @@ int game_loop(t_base *game)
         player_new_pos_up(game->player_infos);
         i = 1;
     }
-
     // Move backward
     if (game->s_keys->s)
     {
         game->player_infos->new_i = game->player_infos->i - cos(game->player_infos->rotation_angle) * game->player_infos->move_speed;
         game->player_infos->new_j = game->player_infos->j - sin(game->player_infos->rotation_angle) * game->player_infos->move_speed;
         game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 180, 360) * (M_PI / 180);
+        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos(game->player_infos);
         i = 1;
     }
@@ -162,6 +163,7 @@ int game_loop(t_base *game)
         game->player_infos->new_i = game->player_infos->i + cos(game->player_infos->rotation_angle + M_PI / 2) * game->player_infos->move_speed;
         game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle + M_PI / 2) * game->player_infos->move_speed;
         game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 90, 360) * (M_PI / 180);
+        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos_right(game->player_infos);
         i = 1;
     }
@@ -172,15 +174,16 @@ int game_loop(t_base *game)
         game->player_infos->new_i = game->player_infos->i + cos(game->player_infos->rotation_angle - M_PI / 2) * game->player_infos->move_speed;
         game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle - M_PI / 2) * game->player_infos->move_speed;
         game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 270, 360) * (M_PI / 180);
+        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos_left(game->player_infos);
         i = 1 ;
     }
     if (i == 1)
     {
-        draw_map(game);
-       //make  mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
+        // draw_map(game);
+        //  mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
         cast_rays(game);
-        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
+        //  mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     return 0;
 }

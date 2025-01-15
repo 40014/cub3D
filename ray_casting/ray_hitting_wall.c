@@ -16,7 +16,7 @@ void draw_wall_line(t_base *game, double line_length, double x, int color)
     i = 0;
     while(i < start_wall)
     {
-        my_mlx_pixel_put(game, x, i, 0x00FFFF);
+        my_mlx_pixel_put(game, x, i, 0x000000);
         i++;
     }
     while (y < end_wall)
@@ -56,7 +56,7 @@ double calculate_length(t_player_info *player_infos, double x, double y)
     return sqrt(pow(x - player_infos->i, 2) + pow(y - player_infos->j, 2));
 }
 
-int check_straight_ray(t_player_info *player_infos, int angle_of_ray)
+int check_straight_ray(t_player_info *player_infos, double angle_of_ray)
 {
     
     if (angle_of_ray == 0)
@@ -65,19 +65,19 @@ int check_straight_ray(t_player_info *player_infos, int angle_of_ray)
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->wall_hit->ni, player_infos->j);
         return(1);
     }
-    else if(angle_of_ray == 90)
+    else if(angle_of_ray == M_PI / 2)
     {
         find_inters_down(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->i, player_infos->wall_hit->nj);
         return(1);
     }
-    else if (angle_of_ray == 180)
+    else if (angle_of_ray == M_PI)
     {
         find_inters_left(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->wall_hit->ni, player_infos->j);
         return(1);
     }
-    else if (angle_of_ray == 270)
+    else if (angle_of_ray == 3 * M_PI / 2)
     {
         find_inters_up(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->i, player_infos->wall_hit->nj);
@@ -88,35 +88,36 @@ int check_straight_ray(t_player_info *player_infos, int angle_of_ray)
 
 int find_wall_hit_h_v(t_player_info *player_infos)
 {
-    int angle_of_ray;
+    double angle_of_ray;
     int lenght;
+     int count = player_infos->colome;
 
-    angle_of_ray = player_infos->ray_rotation_angle * 180/M_PI;
+
+    angle_of_ray = player_infos->ray_rotation_angle;
     if (check_straight_ray(player_infos, angle_of_ray) == 1)
         return 1;
-    if (angle_of_ray > 0 && angle_of_ray < 90)
-    {
+    if (angle_of_ray > 0 && angle_of_ray < M_PI / 2)
+    {  
         find_inters_down_right_h(player_infos);
         find_inters_down_right_v(player_infos);
         find_nearest_wall_hit_down_right(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->wall_hit->ni, player_infos->wall_hit->nj);
     }
-    else if (angle_of_ray > 90 && angle_of_ray < 180)
+    else if (angle_of_ray > M_PI / 2 && angle_of_ray < M_PI)
     {
         find_inters_down_left_h(player_infos);
         find_inters_down_left_v(player_infos);
         find_nearest_wall_hit_down_left(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->wall_hit->ni, player_infos->wall_hit->nj);
     }
-    else if (angle_of_ray > 180 && angle_of_ray < 270)
+     else if (angle_of_ray > M_PI && angle_of_ray < 3 * M_PI / 2)
     {
         find_inters_up_left_h(player_infos);
         find_inters_up_left_v(player_infos);
         find_nearest_wall_hit_up_left(player_infos);
         player_infos->wall_hit->lenght = calculate_length(player_infos, player_infos->wall_hit->ni, player_infos->wall_hit->nj);
-
     }
-    else if (angle_of_ray > 270 && angle_of_ray < 360)
+     else if (angle_of_ray > 3 * M_PI / 2 && angle_of_ray < 2 * M_PI)
     {
         
         find_inters_up_right_h(player_infos);
@@ -128,69 +129,17 @@ int find_wall_hit_h_v(t_player_info *player_infos)
 }
 
 
-// void cast_rays(t_base *game)
-// {
-//     double start_angle_of_ray;
-//     double end_angle_of_ray;
-//     double angle_of_ray;
-//     double increment;
-//     int colome;
 
-//     game->player_infos->map = game->map;
-//     game->player_infos->map_width = game->map_width;
-//     game->player_infos->map_height = game->map_height;
-
-//     start_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) - FOV/2;
-//     end_angle_of_ray = (game->player_infos->rotation_angle * 180/M_PI) + FOV/2;
-//     colome = 0;
-//     game->player_infos->ray_rotation_angle = (game->player_infos->rotation_angle ) - ((FOV/2) * M_PI / 180);
-//     increment = (60 * (M_PI / 180)) / 320;
-//     while (colome < 320)
-//     {
-//         find_wall_hit_h_v(game->player_infos);
-//         if (game->player_infos->wall_hit->hit_direction == 1)
-//             draw_line2(game, game->player_infos->wall_hit->lenght, 0xff0000);
-//         else
-//             draw_line2(game, game->player_infos->wall_hit->lenght, 0x000000);
-//         game->player_infos->ray_rotation_angle += increment;
-//         increment++;
-//         colome++;
-//     }
-// }
-
-double normalize_angle(double angle) {
-    angle = fmod(angle, 2 * M_PI);
-    if (angle < 0) {
+double normalize_angle(double angle)
+{
+    while (angle < 0)
         angle += 2 * M_PI;
-    }
+    while (angle >= 2 * M_PI)
+        angle -= 2 * M_PI;
     return angle;
 }
 
-// void cast_rays(t_base *game) {
-//     double start_angle_of_ray;
-//     double end_angle_of_ray;
-//     double increment;
-//     int colome;
 
-//     game->player_infos->map = game->map;
-//     game->player_infos->map_width = game->map_width;
-//     game->player_infos->map_height = game->map_height;
-
-//     start_angle_of_ray = game->player_infos->rotation_angle - (FOV / 2) * (M_PI / 180);
-//     end_angle_of_ray = game->player_infos->rotation_angle + (FOV / 2) * (M_PI / 180);
-//     colome = 0;
-//     game->player_infos->ray_rotation_angle = start_angle_of_ray;
-//     increment = FOV * (M_PI / 180) /SCREEN_SIZE;
-
-//     while (colome < SCREEN_SIZE) {
-//         game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
-//         find_wall_hit_h_v(game->player_infos);
-//         draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff000);
-//         game->player_infos->ray_rotation_angle += increment;
-//         colome++;
-//     }
-//       mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
-// }
 
 
 void cast_rays(t_base *game)
@@ -202,6 +151,8 @@ void cast_rays(t_base *game)
     double wall_height;
     double correct_lenght;
     int colome;
+    int x;
+    int y;
 
     game->player_infos->map = game->map;
     game->player_infos->map_width = game->map_width;
@@ -217,8 +168,10 @@ void cast_rays(t_base *game)
    
     while (colome < SCREEN_SIZE)
     {
+        
          game->player_infos->wall_hit->hit_direction = 0;
         game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
+        game->player_infos->colome = colome;
         find_wall_hit_h_v(game->player_infos);
         correct_lenght = game->player_infos->wall_hit->lenght * cos(game->player_infos->ray_rotation_angle - game->player_infos->rotation_angle );
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
@@ -227,7 +180,8 @@ void cast_rays(t_base *game)
         if (game->player_infos->wall_hit->hit_direction == 1)
             draw_wall_line(game, wall_height, colome, 0xC0C0C0);
         else
-            draw_wall_line(game, wall_height, colome, 0xffffff);
+           draw_wall_line(game, wall_height, colome, 0xffffff);
+        //  draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff0000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
         

@@ -23,7 +23,7 @@ void find_inters_up_left_h(t_player_info *player_infos)
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1'
-        && check_the_edge1(player_infos, jsteps, isteps) != 1 && player_infos->check_one_cub != 1)
+        && check_the_edge1(player_infos, jsteps, isteps) != 1 )
     {
         jsteps -= CUB_SIZE;
         isteps -= CUB_SIZE / fabs(tan(player_infos->ray_rotation_angle));
@@ -31,7 +31,7 @@ void find_inters_up_left_h(t_player_info *player_infos)
         x = ((int)isteps ) / CUB_SIZE;
 
     }
-    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->check_one_cub != 1)
+    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width )
     {
         player_infos->wall_hit->hi = isteps;
         player_infos->wall_hit->hj = jsteps;
@@ -59,14 +59,14 @@ void find_inters_up_left_v(t_player_info *player_infos)
     }
 
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1'
-        && check_the_edge1(player_infos, jsteps, isteps) != 1 && player_infos->check_one_cub != 1)
+        && check_the_edge1(player_infos, jsteps, isteps) != 1 )
     {
         isteps -= CUB_SIZE;
         jsteps -= CUB_SIZE * fabs(tan(player_infos->ray_rotation_angle));
         y = ((int)jsteps ) / CUB_SIZE;
         x = ((int)isteps - 1) / CUB_SIZE;
     }
-    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->check_one_cub != 1)
+    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width )
     {
         player_infos->wall_hit->vi = isteps;
         player_infos->wall_hit->vj = jsteps;
@@ -75,7 +75,6 @@ void find_inters_up_left_v(t_player_info *player_infos)
 
 void find_nearest_wall_hit_up_left(t_player_info *player_infos)
 {
-  //  printf("hj : %lf     hi : %lf ********   vj : %lf   vi : %lf\n", player_infos->wall_hit->hj, player_infos->wall_hit->hi, player_infos->wall_hit->vj, player_infos->wall_hit->vi);
     if (player_infos->wall_hit->hi == -1 || player_infos->wall_hit->hj == -1)
     {
         player_infos->wall_hit->nj = player_infos->wall_hit->vj;

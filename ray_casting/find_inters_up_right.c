@@ -21,14 +21,14 @@ void find_inters_up_right_h(t_player_info *player_infos)
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1'
-        && check_the_edge2(player_infos, jsteps, isteps) != 1 && player_infos->check_one_cub != 1)
+        && check_the_edge2(player_infos, jsteps, isteps) != 1 )
     {
         jsteps -= CUB_SIZE;
         isteps += CUB_SIZE / fabs(tan(player_infos->ray_rotation_angle));
         y = ((int)jsteps -1) / CUB_SIZE;
         x = ((int)isteps) / CUB_SIZE;
     }
-    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->check_one_cub != 1)
+    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width )
     {
         player_infos->wall_hit->hi = isteps;
         player_infos->wall_hit->hj = jsteps;
@@ -55,14 +55,14 @@ void find_inters_up_right_v(t_player_info *player_infos)
         return;
     }
     while (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map[y][x] != '1'
-        && check_the_edge2(player_infos, jsteps, isteps) != 1 && player_infos->check_one_cub != 1)
+        && check_the_edge2(player_infos, jsteps, isteps) != 1)
     {
         isteps += CUB_SIZE;
         jsteps -= CUB_SIZE * fabs(tan(player_infos->ray_rotation_angle));
         y = ((int)jsteps ) / CUB_SIZE;
         x = ((int)isteps ) / CUB_SIZE;
     }
-    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->check_one_cub != 1)
+    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width )
     {
         player_infos->wall_hit->vi = isteps;
         player_infos->wall_hit->vj = jsteps;
