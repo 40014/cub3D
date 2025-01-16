@@ -12,16 +12,16 @@
 # include <unistd.h>
 
 # define CUB_SIZE 64
-# define MINI_MAP_SIZE 8
+# define MINI_MAP_SIZE 14
 # define MINI_MAP_SIZE_PLAYER 4
-# define SCREEN_SIZE 2048
-# define SCREEN_HEIGHT 1900
+# define SCREEN_SIZE 800
+# define SCREEN_HEIGHT 500
 # define FOV 60
 # define P_SPEED  14
 # define R_SPEED  8
 # define TILE_SIZE 32
 # define COLOME_SIZE 1
-# define DIS_WALL 40
+# define DIS_WALL 10
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
