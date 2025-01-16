@@ -1,23 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_lib.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 16:10:50 by medo              #+#    #+#             */
+/*   Updated: 2025/01/06 16:10:52 by medo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub.h"
 
-int	ft_isdigit(int i)
+int	ft_isdigit_str(char *str)
 {
-	while (i >= '0' && i <= '9')
+	int	i;
+
+	if (!str || !*str)
 		return (0);
-	return (1);
-}
-
-void	*ft_memset(void *dest, int c, size_t count)
-{
-	unsigned char	*p;
-
-	p = (unsigned char *)dest;
-	while (count > 0)
+	i = 0;
+	while (str[i])
 	{
-		p[count - 1] = c;
-		count--;
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
 	}
-	return (dest);
+	return (1);
 }
 
 int	ft_atoi(const char *str)

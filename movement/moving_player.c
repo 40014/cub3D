@@ -46,17 +46,6 @@ void player_new_pos_up(t_player_info *player_infos)
     player_infos->ray_rotation_angle = player_infos->real_angle;
     find_wall_hit_h_v(player_infos);
     len_to_wall = player_infos->wall_hit->lenght;
-   // printf("lenght %lf\n", len_to_wall);
-    // if (len_to_wall <= DIS_WALL)
-    // {
-    //     if (len_to_wall > 0)
-    //     {
-    //         if (player_infos->rotation_angle < )
-    //     }
-
-
-    //     return;
-    // }
     if (len_to_wall - DIS_WALL < player_infos->move_speed)
     {
         player_infos->i = player_infos->i + cos(player_infos->rotation_angle) * (len_to_wall - DIS_WALL);
@@ -192,12 +181,14 @@ int game_loop(t_base *game)
     if (i == 1)
     {
         // draw_map(game);
-          mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
+        //  mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
         cast_rays(game);
+        draw_minimap(game); // draw minimap 
         //  mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     return 0;
 }
+
 
 
 char get_player_pos_and_dir(t_player_info *player_infos)

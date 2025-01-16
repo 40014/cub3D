@@ -1,6 +1,6 @@
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror -w
+CFLAGS = -Wall -Wextra -Werror -w #-fsanitize=address -g3
 
 FLAGS =  -lmlx -lXext -lX11 -lm -lz 
 
@@ -13,6 +13,7 @@ RAY_CASTING =	ray_casting/find_inters_up_left.c ray_casting/find_inters_down_rig
 PARSING =	parsing/check_texture_rgb.c parsing/ft_split.c parsing/utils.c                   \
 			get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
 			parsing/intialize_game.c parsing/parsing.c parsing/parsing2.c  parsing/utils_lib.c \
+			parsing/minimap.c parsing/utils_parsing.c parsing/validate_map.c parsing/drawing.c  \
 
 SOURCES = $(PARSING) $(RAY_CASTING)	
 

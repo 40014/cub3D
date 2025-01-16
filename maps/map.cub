@@ -1,4 +1,6 @@
-F 173,     216,    230
+
+
+F 186,139,143
 
 NO   texture/path_to_the_north_texture.xpm
 SO   texture/path_to_the_south_texture.xpm
@@ -7,7 +9,7 @@ EA  texture/path_to_the_east_texture.xpm
 
 
 
-C 0, 105,     12
+C 13, 152, 186
 
 
 

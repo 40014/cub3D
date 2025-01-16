@@ -1,36 +1,71 @@
 # include "../cub.h"
 
 
-
-
-void draw_wall_line(t_base *game, double line_length, double x, int color)
+void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n)
 {
     double y;
     double start_wall;
     double end_wall;
     double i;
+    t_texture *texture;
 
     start_wall = (SCREEN_HEIGHT / 2) - (line_length / 2);
     end_wall = start_wall + line_length;
     y = start_wall;
     i = 0;
+    texture = game->textures[n];
     while(i < start_wall)
     {
-        my_mlx_pixel_put(game, x, i, 0x000000);
+        my_mlx_pixel_put(game, x, i, game->ceiling_color);
         i++;
     }
+    int     tex_y;
+    int color;
+    y = start_wall;
     while (y < end_wall)
     {
+        // printf("hello world\n");
+        tex_y = ((y - start_wall) * texture->height) / (end_wall - start_wall);
+        color = *(unsigned int *)((char *)texture->data + (tex_y * texture->line_length + tex_x * (texture->bpp / 8))); 
         my_mlx_pixel_put(game, x, y, color);
         y++;
     }
     i = end_wall++;
     while(i < SCREEN_HEIGHT)
     {
-        my_mlx_pixel_put(game, x, i, 0x70442C);
+        my_mlx_pixel_put(game, x, i, game->floor_color);
         i++;
-    }  
+    }
 }
+
+// void draw_wall_line(t_base *game, double line_length, double x, int color)
+// {
+//     double y;
+//     double start_wall;
+//     double end_wall;
+//     double i;
+
+//     start_wall = (SCREEN_HEIGHT / 2) - (line_length / 2);
+//     end_wall = start_wall + line_length;
+//     y = start_wall;
+//     i = 0;
+//     while(i < start_wall)
+//     {
+//         my_mlx_pixel_put(game, x, i, 0x000000);
+//         i++;
+//     }
+//     while (y < end_wall)
+//     {
+//         my_mlx_pixel_put(game, x, y, color);
+//         y++;
+//     }
+//     i = end_wall++;
+//     while(i < SCREEN_HEIGHT)
+//     {
+//         my_mlx_pixel_put(game, x, i, 0x70442C);
+//         i++;
+//     }  
+// }
 
 void draw_line2(t_base *game, double line_lenght, int color)
 {
@@ -141,6 +176,30 @@ double normalize_angle(double angle)
 
 
 
+double    calculate_wall_x(t_player_info *ray)
+{
+    double    wall_x;
+
+    if (ray->wall_hit->hit_direction == 0)
+        wall_x = fmod(ray->wall_hit->ni, CUB_SIZE);
+    else
+        wall_x = fmod(ray->wall_hit->nj, CUB_SIZE);
+    return (wall_x);
+}
+
+int    get_texture_x(t_base *game, double wall_x, int n)
+{
+    int        tex_x;
+    t_texture    *texture;
+
+
+    texture = game->textures[n];
+    tex_x = (int)(wall_x * ((double)texture->width / TILE_SIZE));
+    if (tex_x < 0)
+        tex_x = 0;
+    return (tex_x);
+}
+
 
 void cast_rays(t_base *game)
 {
@@ -165,7 +224,10 @@ void cast_rays(t_base *game)
 
     distance_projection = (SCREEN_SIZE / 2) / (tan((FOV / 2) * (M_PI / 180)));
     increment = FOV * (M_PI / 180) /SCREEN_SIZE;
-   
+    
+    double wall_x;
+    int tex_x;
+    int n;
     while (colome < SCREEN_SIZE)
     {
         
@@ -177,21 +239,26 @@ void cast_rays(t_base *game)
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
         if (wall_height > SCREEN_HEIGHT)
             wall_height = SCREEN_HEIGHT;
+        wall_x = calculate_wall_x(game->player_infos);
+       
+        
         if (game->player_infos->wall_hit->hit_direction == 0)
         {
             if (game->player_infos->ray_rotation_angle >= 0 && game->player_infos->ray_rotation_angle < M_PI)
-                draw_wall_line(game, wall_height, colome, 0xff0000);
+                n = 0;
             else
-                draw_wall_line(game, wall_height, colome, 0x0000ff);
+                n = 1;
         }       
         else
         {
             if (game->player_infos->ray_rotation_angle >= M_PI / 2 && game->player_infos->ray_rotation_angle < 3 * (M_PI / 2))
-                draw_wall_line(game, wall_height, colome, 0xfff000);
+                 n = 2;
             else
-                draw_wall_line(game, wall_height, colome, 0xA020F0);
+                 n = 3;
         }
-        //  draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff0000);
+         tex_x = get_texture_x(game, wall_x, n);
+        draw_wall_line(game, wall_height, colome, tex_x, n);
+        // draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff0000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
         

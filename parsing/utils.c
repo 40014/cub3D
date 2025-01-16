@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 16:07:58 by medo              #+#    #+#             */
+/*   Updated: 2025/01/07 14:30:09 by medo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub.h"
 
 void	free_split(char **str)
@@ -11,6 +23,19 @@ void	free_split(char **str)
 		i++;
 	}
 	free(str);
+}
+
+void	free_texture(char **textur)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (textur[i])
+			free(textur[i]);
+		i++;
+	}
 }
 
 size_t	ft_strlen2(const char *s)
@@ -32,7 +57,7 @@ char	*ft_strdup(const char *s1)
 	int		j;
 	char	*dup;
 
-	dup = malloc ((ft_strlen(s1) + 1) * sizeof(char));
+	dup = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (dup == NULL)
 		return (NULL);
 	j = 0;
@@ -57,5 +82,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
-
-

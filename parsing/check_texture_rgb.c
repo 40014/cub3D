@@ -1,145 +1,119 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_texture_rgb.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/06 13:31:46 by medo              #+#    #+#             */
+/*   Updated: 2025/01/06 13:34:42 by medo             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub.h"
 
-int ft_isdigit_str(char *str)
+void	check_commas(t_base *game, char *line)
 {
-    int i;
+	int	i;
+	int	j;
 
-    if (!str || !*str)
-        return (0);
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] < '0' || str[i] > '9')
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			j++;
+		i++;
+	}
+	if (j > 2)
+	{
+		printf("Error\nIvalid color format, more than two commas\n");
+		cleanup(game, line);
+		free(game->readmap);
+		exit(19);
+	}
 }
 
-void    check_commas(char *line)
+void	check_texture_file(t_base *game, char *file, char *tokens)
 {
-    int i;
-    int j;
+	int	fd;
 
-    i = 0;
-    j = 0;
-    while (line[i])
-    {
-        if (line[i] == ',')
-            j++;
-        i++;
-    }
-    if (j > 2)
-    {
-        printf("Error\nIvalid color format, more than two commas\n");
-        exit(1);
-    }
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf_err("Error\nTexture file doesn't exist\n");
+		free_texture(game->textures);
+		free(file);
+		free(tokens);
+		exit(111);
+	}
 }
 
-void    print_token(char **tokens)
+void	ft_parse_texture(t_base *game, char *tokens)
 {
-    int i;
+	int		index;
+	char	*path;
+	char	**split;
 
-    i = 0;
-    while (tokens[i])
-    {
-        printf("this is token[%d] = '%s'\n", i, tokens[i]);
-        i++;
-    }
+	path = NULL;
+	path = ft_strtrim(tokens + 3, " \t\n");
+	check_texture_file(game, path, tokens);
+	split = ft_split(tokens, ' ');
+	if (ft_strncmp(split[0], "NO", 3) == 0)
+		index = 0;
+	else if (ft_strncmp(split[0], "SO", 3) == 0)
+		index = 1;
+	else if (ft_strncmp(split[0], "WE", 3) == 0)
+		index = 2;
+	else if (ft_strncmp(split[0], "EA", 3) == 0)
+		index = 3;
+	game->path[index] = ft_strdup(path);
+	if (path != NULL)
+		free(path);
+	free_split(split);
 }
 
-void    check_texture_file(char *file)
+char	**process_line_to_rgb(t_base *game, char *line)
 {
-    int fd;
+	char	*trimmed_line;
+	char	**rgb;
 
-    fd = open(file, O_RDONLY);
-    if (fd < 0)
-    {
-        ft_printf_err("Error\nTexture file doesn't exist\n");
-        free(file);
-        exit(1);
-    }
+	trimmed_line = ft_strtrim(line, " \n");
+	free(line);
+	check_commas(game, trimmed_line);
+	rgb = ft_split(trimmed_line, ',');
+	free(trimmed_line);
+	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
+		error_color(game, rgb,
+			"Error\nInvalid color : requires 3 values separated by commas.\n");
+	return (rgb);
 }
 
-void ft_parse_texture(t_base *game, char *tokens)
+int	parse_color(t_base *game, char *line)
 {
-    int     index;
-    char    *path;
-    char    **split;
+	char	**rgb;
+	int		color;
+	char	*trimmed_rgb;
+	int		i;
 
-    path = NULL;
-    path = ft_strtrim(tokens + 3, " \t\n");
-    // printf("path = '%s'\n", path);
-    check_texture_file(path);
-    split = ft_split(tokens, ' ');
-    // print_token(split);
-    if (ft_strncmp(split[0], "NO", 3) == 0)
-        index = 0;
-    else if (ft_strncmp(split[0], "SO", 3) == 0)
-        index = 1;
-    else if (ft_strncmp(split[0], "WE", 3) == 0)
-        index = 2;
-    else if (ft_strncmp(split[0], "EA", 3) == 0)
-        index = 3;
-    else
-    {
-        ft_printf_err("Error\nInvalid texture identifier. Must be NO, SO, WE, or EA\n");
-        exit(1);
-    }
-    if (ft_strlen2(path) == 0)
-    {
-        printf("Error\nInvalid texture path. The path cannot be empty.\n");
-        free(path);
-        exit(1);
-    }
-    game->textures[index] = ft_strdup(path);
-    if (path != NULL)
-        free(path);
-    free_split(split);
-        
-}
-
-int parse_color(char *line)
-{
-    char *trimmed_line;
-    char **rgb;
-    int color;
-    char *trimmed_rgb;
-    int i;
-
-    i = 0;
-    trimmed_line = ft_strtrim(line, " \n");
-    check_commas(trimmed_line);
-    rgb = ft_split(trimmed_line, ',');
-    free(trimmed_line);
-    if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL) // Check if exactly three components are present
-    {
-        ft_printf_err("Error\nInvalid color format: requires exactly 3 values separated by commas.\n");
-        free_split(rgb);
-        exit(1);
-    }
-    while (i < 3)
-    {
-        trimmed_rgb = ft_strtrim(rgb[i], " ");
-        free(rgb[i]);
-        rgb[i] = trimmed_rgb;
-        if (!ft_isdigit_str(rgb[i]))
-        {
-            ft_printf_err("Error\nColor values must be numeric\n");
-            free_split(rgb);
-            exit(1);
-        }
-        i++;
-    }
-    color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
-    if (ft_atoi(rgb[0]) < 0 || ft_atoi(rgb[0]) > 255 ||
-        ft_atoi(rgb[1]) < 0 || ft_atoi(rgb[1]) > 255 ||
-        ft_atoi(rgb[2]) < 0 || ft_atoi(rgb[2]) > 255)
-    {
-        ft_printf_err("Error\nColor values must be between 0 and 255.\n");
-        free_split(rgb);
-        exit(1);
-    }
-    free_split(rgb);
-    return (color);
+	i = 0;
+	color = -1;
+	rgb = process_line_to_rgb(game, line);
+	while (i < 3)
+	{
+		trimmed_rgb = ft_strtrim(rgb[i], " ");
+		free(rgb[i]);
+		rgb[i] = trimmed_rgb;
+		if (!ft_isdigit_str(rgb[i]))
+			error_color(game, rgb, "Error\nColor values must be numeric\n");
+		i++;
+	}
+	color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+	if (ft_atoi(rgb[0]) < 0 || ft_atoi(rgb[0]) > 255 || ft_atoi(rgb[1]) < 0
+		|| ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[2]) < 0
+		|| ft_atoi(rgb[2]) > 255)
+		error_color(game, rgb,
+			"Error\nColor values must be between 0 and 255.\n");
+	free_split(rgb);
+	return (color);
 }

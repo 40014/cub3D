@@ -11,15 +11,17 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 32
+# define CUB_SIZE 64
+# define MINI_MAP_SIZE 8
+# define MINI_MAP_SIZE_PLAYER 4
 # define SCREEN_SIZE 2048
 # define SCREEN_HEIGHT 1900
 # define FOV 60
-# define P_SPEED  20
-# define R_SPEED  10
+# define P_SPEED  14
+# define R_SPEED  8
 # define TILE_SIZE 32
 # define COLOME_SIZE 1
-# define DIS_WALL 4
+# define DIS_WALL 40
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
@@ -43,6 +45,17 @@ typedef  struct mlx
     int     endian;  
 
 } t_mlx_ptrs;
+
+typedef struct s_texture
+{
+    void    *img_ptr;
+    int     *data;
+    int     width;
+    int     height;
+    int     bpp;
+    int     line_length;
+    int     endian;
+} t_texture;
 
 typedef struct hit
 {
@@ -89,6 +102,9 @@ typedef struct s_keys
     int d;
     int left;
     int right;
+
+    double minimap_p_x;
+    double minimap_p_y;
 } t_keys;
 
 typedef struct cub
@@ -101,7 +117,8 @@ typedef struct cub
     int     player_x;       
     int     player_y;       
     char    player_dir;     
-    char    *textures[4];   
+    t_texture       *textures[4];
+    char        *path[4];
     int     floor_color;    
     int     ceiling_color;
     t_keys  *s_keys;
@@ -122,11 +139,9 @@ void ft_parse_texture(t_base *game, char *tokens);
 int parse_map(t_base *game, int fd);
 void    ft_printf_err(char *str);
 char	*ft_strdup(const char *s1);
-int parse_color(char *line);
+int parse_color(t_base *game, char *line);
 char	*ft_strtrim(char const *s1, char const *set);
-int	ft_isdigit(int i);
-void	*ft_memset(void *dest, int c, size_t count);
-void draw_map(t_base *game);
+int ft_isdigit_str(char *str);
 void draw_square(t_base *game, int x, int y, int color);
 
 void ft_init_struct_game(t_base *game);
@@ -136,6 +151,14 @@ void initialize_keys(t_base *game);
 void my_mlx_pixel_put(t_base *game, int x, int y, int color);
 void draw_square(t_base *game, int x, int y, int color);
 void draw_map(t_base *game);
+void draw_minimap(t_base *game);
+void	free_texture(char **textur);
+void cleanup(t_base *game, char *line);
+void error_exit(t_base *game, char *line);
+void error_color(t_base *game, char **rgb, char *str);
+void validate_map(t_base *game);
+void pad_map(t_base *game);
+void	initialize_map(t_base *game, char *line);
 
 
 
@@ -169,8 +192,8 @@ int check_the_edge2(t_player_info *player_infos, int j, int i);
 double normalize_angle(double angle);
 int check_the_edge1(t_player_info *player_infos, int j, int i);
 int find_wall_hit_h_v(t_player_info *player_infos);
-void init_rotation_angle(char d, t_player_info *player_infos);
 double calculate_length(t_player_info *player_infos, double x, double y);
+void init_rotation_angle(char d, t_player_info *player_infos);
 
 
 
