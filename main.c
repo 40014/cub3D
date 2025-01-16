@@ -31,11 +31,11 @@ int main(int ac, char **av)
     player_infos.map = game.map;
     player_infos.map_width = game.map_width;
     player_infos.map_height = game.map_height;
-    player_infos.rotation_angle = (M_PI / 180) * 90 ;
     player_infos.rotation_speed = R_SPEED * (M_PI / 180);
     player_infos.move_speed = P_SPEED;
     game.player_infos = &player_infos;
-    get_player_pos(&player_infos);
+    init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
+
     cast_rays(&game);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
     mlx_loop_hook(game.mlx_ptrs->mlx_ptr, game_loop, &game);
