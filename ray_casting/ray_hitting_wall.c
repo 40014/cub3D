@@ -24,7 +24,6 @@ void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n
     y = start_wall;
     while (y < end_wall)
     {
-        // printf("hello world\n");
         tex_y = ((y - start_wall) * texture->height) / (end_wall - start_wall);
         color = *(unsigned int *)((char *)texture->data + (tex_y * texture->line_length + tex_x * (texture->bpp / 8))); 
         my_mlx_pixel_put(game, x, y, color);
@@ -232,8 +231,8 @@ void cast_rays(t_base *game)
     {
         
          game->player_infos->wall_hit->hit_direction = 0;
-        game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
-        game->player_infos->colome = colome;
+         game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
+
         find_wall_hit_h_v(game->player_infos);
         correct_lenght = game->player_infos->wall_hit->lenght * cos(game->player_infos->ray_rotation_angle - game->player_infos->rotation_angle );
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
@@ -256,15 +255,13 @@ void cast_rays(t_base *game)
             else
                  n = 3;
         }
-         tex_x = get_texture_x(game, wall_x, n);
+        tex_x = get_texture_x(game, wall_x, n);
         draw_wall_line(game, wall_height, colome, tex_x, n);
-        // draw_line2(game, game->player_infos->wall_hit->lenght, 0xfff0000);
+        //   draw_line2(game, game->player_infos->wall_hit->lenght, 0x0000000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
         
     }
-
-    mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
    
 }
 
