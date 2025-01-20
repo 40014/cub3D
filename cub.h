@@ -11,15 +11,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define CUB_SIZE 64
-# define MINI_MAP_SIZE 4
+# define CUB_SIZE 32
+# define MINI_MAP_SIZE 2
 # define MINI_MAP_SIZE_PLAYER 4
 # define SCREEN_SIZE 2060
 # define SCREEN_HEIGHT 1900
 # define FOV 60
-# define P_SPEED  14
+# define P_SPEED  15
 # define R_SPEED  8
 # define TILE_SIZE 32
+# define CELLS_RANGE 5
 # define COLOME_SIZE 1
 # define DIS_WALL 10
 # define W_KEY        119
@@ -102,10 +103,20 @@ typedef struct s_keys
     int d;
     int left;
     int right;
-
     double minimap_p_x;
     double minimap_p_y;
+
 } t_keys;
+
+typedef struct s_mini_range
+{
+    int start_i;
+    int start_y;
+    int end_i;
+    int end_y;
+    double minimap_p_x;
+    double minimap_p_y;
+}   t_mini_range;
 
 typedef struct cub
 {
