@@ -194,7 +194,7 @@ int game_loop(t_base *game)
         //  mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
         cast_rays(game);
         draw_minimap(game); // draw minimap 
-         mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
+        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     return 0;
 }

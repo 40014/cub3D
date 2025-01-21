@@ -236,8 +236,6 @@ void cast_rays(t_base *game)
         find_wall_hit_h_v(game->player_infos);
         correct_lenght = game->player_infos->wall_hit->lenght * cos(game->player_infos->ray_rotation_angle - game->player_infos->rotation_angle );
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
-        if (wall_height > SCREEN_HEIGHT)
-            wall_height = SCREEN_HEIGHT;
         wall_x = calculate_wall_x(game->player_infos);
        
         
