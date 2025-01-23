@@ -14,11 +14,11 @@
 # define CUB_SIZE 32
 # define MINI_MAP_SIZE 2
 # define MINI_MAP_SIZE_PLAYER 4
-# define SCREEN_SIZE 1900
-# define SCREEN_HEIGHT 1900
+# define SCREEN_SIZE 1200
+# define SCREEN_HEIGHT 900
 # define FOV 60
-# define P_SPEED  8
-# define R_SPEED  5
+# define P_SPEED  1
+# define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
 # define COLOME_SIZE 1
@@ -30,6 +30,7 @@
 # define LEFT_ARROW   65361
 # define RIGHT_ARROW  65363
 # define ESC          65307
+# define MOUSE_SPED  0.006
 
 //# define M_PI 3.14159265358979323846
 
