@@ -11,32 +11,45 @@ void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n
 
     start_wall = (SCREEN_HEIGHT / 2) - (line_length / 2);
     end_wall = start_wall + line_length;
+    if (start_wall < 0)
+        start_wall = 0;
+    if (end_wall > SCREEN_HEIGHT)
+        end_wall = SCREEN_HEIGHT;
+
     y = start_wall;
     i = 0;
     texture = game->textures[n];
-    while(i < start_wall)
+
+    while (i < start_wall)
     {
         my_mlx_pixel_put(game, x, i, game->ceiling_color);
         i++;
     }
-    int     tex_y;
+
+    int tex_y;
     int color;
-    y = start_wall;
+    double texture_step = (double)texture->height / line_length; 
+    double texture_pos = (start_wall - ((SCREEN_HEIGHT / 2) - (line_length / 2))) * texture_step;
+
     while (y < end_wall)
     {
-        tex_y = ((y - start_wall) * texture->height) / (end_wall - start_wall);
+        tex_y = (int)texture_pos; 
+        if (tex_y >= texture->height) 
+            tex_y = texture->height - 1;
         color = *(unsigned int *)((char *)texture->data + (tex_y * texture->line_length + tex_x * (texture->bpp / 8))); 
         my_mlx_pixel_put(game, x, y, color);
+        texture_pos += texture_step; 
         y++;
     }
-    i = end_wall++;
-    while(i < SCREEN_HEIGHT)
+
+
+    i = end_wall;
+    while (i < SCREEN_HEIGHT)
     {
         my_mlx_pixel_put(game, x, i, game->floor_color);
         i++;
     }
 }
-
 // void draw_wall_line(t_base *game, double line_length, double x, int color)
 // {
 //     double y;
