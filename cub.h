@@ -12,17 +12,17 @@
 # include <unistd.h>
 
 # define CUB_SIZE 32
-# define MINI_MAP_SIZE 2
+# define MINI_MAP_SIZE 1
 # define MINI_MAP_SIZE_PLAYER 4
-# define SCREEN_SIZE 1200
-# define SCREEN_HEIGHT 900
+# define SCREEN_SIZE 1900
+# define SCREEN_HEIGHT 1900
 # define FOV 60
-# define P_SPEED  1
-# define R_SPEED  1
+# define P_SPEED  10
+# define R_SPEED  3
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
 # define COLOME_SIZE 1
-# define DIS_WALL 4
+# define DIS_WALL CUB_SIZE / 3
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
@@ -30,7 +30,7 @@
 # define LEFT_ARROW   65361
 # define RIGHT_ARROW  65363
 # define ESC          65307
-# define MOUSE_SPED  0.006
+# define MOUSE_SPED  0.0000000006
 
 //# define M_PI 3.14159265358979323846
 
@@ -66,6 +66,7 @@ typedef struct hit
     double vj;
     double vi;
     double ni;
+    int in_edge;
     double nj;
     double lenght;
     int    hit_direction;

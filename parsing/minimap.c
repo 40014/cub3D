@@ -41,7 +41,8 @@ void    draw_minimap_walls(t_base *game, t_mini_range *mini_map_range)
                 color = 0x000000;
             else if (game->map[j][i] == '0')
                 color = 0xAAAAAA;
-            else if (game->map[j][i] == 'N')
+            else if (game->map[j][i] == 'N' || game->map[j][i] == 'S' 
+                || game->map[j][i] == 'W' || game->map[j][i] == 'E')
                 color = 0xAAAAAA;
             x = (i - mini_map_range->start_i) * scaled_tile_size;
             y = (j - mini_map_range->start_y) * scaled_tile_size;
@@ -88,7 +89,8 @@ void fix_start_end_i(t_mini_range *mini_map_range, t_base *game)
         while (mini_map_range->start_i < 0)
         {
             mini_map_range->start_i++;
-            mini_map_range->end_i++;
+            if (mini_map_range->end_i < game->map_width)
+                mini_map_range->end_i++;
         }
     }
     else if (mini_map_range->end_i > game->map_width)
@@ -96,6 +98,7 @@ void fix_start_end_i(t_mini_range *mini_map_range, t_base *game)
         while (mini_map_range->end_i > game->map_width)
         {
             mini_map_range->end_i--;
+            if (mini_map_range->start_i > 0)
             mini_map_range->start_i--;
         }
     }
@@ -115,7 +118,8 @@ void fix_start_end_y(t_mini_range *mini_map_range, t_base *game)
         while (mini_map_range->start_y < 0)
         {
             mini_map_range->start_y++;
-            mini_map_range->end_y++;
+            if (mini_map_range->end_y < game->map_height)
+                mini_map_range->end_y++;
         }
     }
     else if (mini_map_range->end_y > game->map_height)
@@ -124,7 +128,8 @@ void fix_start_end_y(t_mini_range *mini_map_range, t_base *game)
         while (mini_map_range->end_y > game->map_height)
         {
             mini_map_range->end_y--;
-            mini_map_range->start_y--;
+            if (mini_map_range->start_y > 0)
+                mini_map_range->start_y--;
         }
     }
 }

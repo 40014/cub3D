@@ -1,13 +1,13 @@
-F 173,     216,    230
+F 192,     192,    192
 
-NO   texture/path_to_the_north_texture.xpm
-SO   texture/path_to_the_south_texture.xpm
-WE   texture/path_to_the_west_texture.xpm
-EA  texture/path_to_the_east_texture.xpm
+NO   texture/street/12.xpm
+SO   texture/street/13.xpm
+WE   texture/street/14.xpm
+EA  texture/street/15.xpm
 
 
 
-C 0, 105,     12
+C 0, 255,     255
 
 
 

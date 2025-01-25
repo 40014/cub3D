@@ -77,7 +77,7 @@ int main(int ac, char **av)
    init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
     cast_rays(&game);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
-    mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
+    // mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
     mlx_loop_hook(game.mlx_ptrs->mlx_ptr, game_loop, &game);
     mlx_loop(mlx_ptrs.mlx_ptr);
     return(0);

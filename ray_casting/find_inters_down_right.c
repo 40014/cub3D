@@ -5,6 +5,7 @@ int check_the_edge1(t_player_info *player_infos, int j, int i)
     int y;
     int x;
 
+   
     if (i <= 0 || j <= 0)
         return 0;
     y = j / CUB_SIZE;
@@ -19,6 +20,7 @@ int check_the_edge1(t_player_info *player_infos, int j, int i)
         x = (i - 2) / CUB_SIZE;
         if (player_infos->map[y][x] != '1')
             return(0);
+        player_infos->wall_hit->in_edge = 1;
         return(1);
     }
     return(0);

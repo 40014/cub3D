@@ -139,7 +139,8 @@ int find_wall_hit_h_v(t_player_info *player_infos)
     int lenght;
      int count = player_infos->colome;
 
-
+     player_infos->wall_hit->in_edge = 0;
+    player_infos->wall_hit->hit_direction = 0;
     angle_of_ray = player_infos->ray_rotation_angle;
     if (check_straight_ray(player_infos, angle_of_ray) == 1)
         return 1;
@@ -243,7 +244,6 @@ void cast_rays(t_base *game)
     while (colome < SCREEN_SIZE)
     {
         
-         game->player_infos->wall_hit->hit_direction = 0;
          game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
 
         find_wall_hit_h_v(game->player_infos);
@@ -268,7 +268,7 @@ void cast_rays(t_base *game)
         }
         tex_x = get_texture_x(game, wall_x, n);
         draw_wall_line(game, wall_height, colome, tex_x, n);
-        //   draw_line2(game, game->player_infos->wall_hit->lenght, 0x0000000);
+        //    draw_line2(game, game->player_infos->wall_hit->lenght, 0x0000000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
         
