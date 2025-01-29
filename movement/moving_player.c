@@ -178,7 +178,6 @@ void close_doors(t_player_info *player_infos, double lenght)
     x = (int)player_infos->i / CUB_SIZE;
     y2 = (int)player_infos->new_j / CUB_SIZE;
     x2 = (int)player_infos->new_i / CUB_SIZE;
-
     if (player_infos->map2[y2][x2] != 'D')
     {
         if (player_infos->map2[y + 1][x] == 'D')
@@ -354,28 +353,42 @@ int check_if_door(t_player_info *player_infos)
 {
     int y;
     int x;
+    int y2;
+    int x2;
+    int t = 0;
 
     if (player_infos->wall_hit->hit_direction == 0)
     {
-       
-        if (player_infos->ray_rotation_angle > 0 && player_infos->ray_rotation_angle < M_PI)
-            player_infos->wall_hit->nj;
+        if (player_infos->rotation_angle > 0 && player_infos->rotation_angle < M_PI)
+            t = 1;
         else
-            player_infos->wall_hit->nj -= 1;
+            t = 2;
     }       
     else
     {
-        if (player_infos->ray_rotation_angle > M_PI / 2 && player_infos->ray_rotation_angle < 3 * (M_PI / 2))
-            player_infos->wall_hit->ni -= 1;
+        if (player_infos->rotation_angle > M_PI / 2 && player_infos->rotation_angle < 3 * (M_PI / 2))
+            t = 3;
+        else
+            t = 4;
     }
-    y = (int)player_infos->wall_hit->nj / CUB_SIZE;
-    x = (int)player_infos->wall_hit->ni / CUB_SIZE;
-    if (y >= 0 && y < player_infos->map_height && x >= 0 && x < player_infos->map_width && player_infos->map2[y][x] == 'D')
-    {
 
-        player_infos->map[y][x] = '0';
+    y = (int)player_infos->j / CUB_SIZE;
+    x = (int)player_infos->i / CUB_SIZE;
+    y2 = (int)player_infos->new_j / CUB_SIZE;
+    x2 = (int)player_infos->new_i / CUB_SIZE;
+    if (player_infos->map2[y2][x2] == 'D')
+    {
+        if (player_infos->map2[y + 1][x] == 'D' && t == 1)
+            player_infos->map[y + 1][x] = '0';
+        else if (player_infos->map2[y - 1][x] == 'D' && t == 2)
+            player_infos->map[y - 1][x] = '0';
+        else if (player_infos->map2[y][x - 1] == 'D' && t == 3)
+            player_infos->map[y][x - 1] = '0';
+        else if (player_infos->map2[y][x + 1] == 'D' && t == 4)
+            player_infos->map[y][x + 1] = '0';
         return(0);
     }
+
     return(1);
     
 }
@@ -386,15 +399,7 @@ int game_loop(t_base *game)
 
     i = 0;
 
-    if (game->s_keys->o)
-    {
-        if (check_if_door(game->player_infos) == 0)
-        {
-            cast_rays(game);
-            draw_minimap(game); // draw minimap 
-            mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
-        }
-    }
+
     if (game->s_keys->right)
     {
         game->player_infos->rotation_angle += game->player_infos->rotation_speed;
@@ -448,6 +453,15 @@ int game_loop(t_base *game)
         game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos_left(game->player_infos);
         i = 1 ;
+    }
+    if (game->s_keys->o)
+    {
+        if (check_if_door(game->player_infos) == 0)
+        {
+            cast_rays(game);
+            draw_minimap(game); // draw minimap 
+            mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
+        }
     }
     if (i == 1)
     {
