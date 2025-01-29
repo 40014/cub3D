@@ -170,16 +170,12 @@ void close_doors(t_player_info *player_infos, double lenght)
 {
     int y;
     int x;
-    int y2;
-    int x2;
+
 
     
     y = (int)player_infos->j / CUB_SIZE;
     x = (int)player_infos->i / CUB_SIZE;
-    y2 = (int)player_infos->new_j / CUB_SIZE;
-    x2 = (int)player_infos->new_i / CUB_SIZE;
-    if (player_infos->map2[y2][x2] != 'D')
-    {
+
         if (player_infos->map2[y + 1][x] == 'D')
             player_infos->map[y + 1][x] = '1';
         else if (player_infos->map2[y - 1][x] == 'D' )
@@ -188,7 +184,6 @@ void close_doors(t_player_info *player_infos, double lenght)
             player_infos->map[y][x + 1] = '1';
         else if (player_infos->map2[y][x - 1] == 'D' )
             player_infos->map[y][x - 1] = '1';
-    }
 }
 
 void player_new_pos_up(t_player_info *player_infos)
