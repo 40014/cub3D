@@ -15,7 +15,7 @@
 void	check_invalid_char(t_base *game, char c)
 {
 	if (c != '1' && c != ' ' && c != '0' && c != 'N' && c != 'S' && c != 'E'
-		&& c != 'W')
+		&& c != 'W' && c != 'D')
 	{
 		ft_printf_err("Error\nInvalid character in map\n");
 		free_split(game->map);

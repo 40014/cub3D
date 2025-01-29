@@ -37,12 +37,12 @@ void    draw_minimap_walls(t_base *game, t_mini_range *mini_map_range)
         while (i <= mini_map_range->end_i && i < game->map_width)
         {
             color = 0x009900FF;
-            if (game->map[j][i] == '1')
+            if (game->player_infos->map2[j][i] == '1')
                 color = 0x000000;
-            else if (game->map[j][i] == '0')
+            else if (game->player_infos->map2[j][i] == '0')
                 color = 0xAAAAAA;
-            else if (game->map[j][i] == 'N' || game->map[j][i] == 'S' 
-                || game->map[j][i] == 'W' || game->map[j][i] == 'E')
+            else if (game->player_infos->map2[j][i] == 'N' || game->player_infos->map2[j][i] == 'S' 
+                || game->player_infos->map2[j][i] == 'W' || game->player_infos->map2[j][i] == 'E')
                 color = 0xAAAAAA;
             x = (i - mini_map_range->start_i) * scaled_tile_size;
             y = (j - mini_map_range->start_y) * scaled_tile_size;

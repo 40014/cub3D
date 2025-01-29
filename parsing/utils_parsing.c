@@ -26,7 +26,7 @@ void	error_exit(t_base *game, char *line)
 {
 	char	*str;
 
-	str = "Error\nInvalid t identifier should be as follows[NO,SO,WE,EA,F,C]\n";
+	str = "Error\nInvalid type identifier should be as follows[NO,SO,WE,EA,F,C]\n";
 	ft_printf_err(str);
 	cleanup(game, line);
 	exit(1);

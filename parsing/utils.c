@@ -30,7 +30,7 @@ void	free_texture(char **textur)
 	int	i;
 
 	i = 0;
-	while (i < 4)
+	while (i < 5)
 	{
 		if (textur[i])
 			free(textur[i]);

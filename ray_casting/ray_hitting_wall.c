@@ -7,6 +7,10 @@ void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n
     double start_wall;
     double end_wall;
     double i;
+    int tex_y;
+    int color;
+    double texture_step;
+    double texture_pos;
     t_texture *texture;
 
     start_wall = (SCREEN_HEIGHT / 2) - (line_length / 2);
@@ -26,10 +30,9 @@ void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n
         i++;
     }
 
-    int tex_y;
-    int color;
-    double texture_step = (double)texture->height / line_length; 
-    double texture_pos = (start_wall - ((SCREEN_HEIGHT / 2) - (line_length / 2))) * texture_step;
+    
+    texture_step = (double)texture->height / line_length; 
+    texture_pos = (start_wall - ((SCREEN_HEIGHT / 2) - (line_length / 2))) * texture_step;
 
     while (y < end_wall)
     {
@@ -213,6 +216,34 @@ int    get_texture_x(t_base *game, double wall_x, int n)
     return (tex_x);
 }
 
+int check_if_inside_portal(t_player_info *player_infos, int n)
+{
+    int x;
+    int y;
+
+
+    if (player_infos->wall_hit->hit_direction == 0)
+    {
+       
+        if (player_infos->ray_rotation_angle > 0 && player_infos->ray_rotation_angle < M_PI)
+            player_infos->wall_hit->nj;
+        else
+            player_infos->wall_hit->nj -= 1;
+    }       
+    else
+    {
+        if (player_infos->ray_rotation_angle > M_PI / 2 && player_infos->ray_rotation_angle < 3 * (M_PI / 2))
+            player_infos->wall_hit->ni -= 1;
+    }
+    y = (int)player_infos->wall_hit->nj / CUB_SIZE;
+    x = (int)player_infos->wall_hit->ni / CUB_SIZE;
+    if (player_infos->map2[y][x] == 'D')
+    {
+       return (4);
+    }
+
+    return(n);
+}
 
 void cast_rays(t_base *game)
 {
@@ -244,6 +275,8 @@ void cast_rays(t_base *game)
     while (colome < SCREEN_SIZE)
     {
         
+        int saved_c = game->ceiling_color;
+        int saved_f = game->floor_color;
          game->player_infos->ray_rotation_angle = normalize_angle(game->player_infos->ray_rotation_angle);
 
         find_wall_hit_h_v(game->player_infos);
@@ -251,7 +284,6 @@ void cast_rays(t_base *game)
         wall_height = (CUB_SIZE / correct_lenght) * distance_projection;
         wall_x = calculate_wall_x(game->player_infos);
        
-        
         if (game->player_infos->wall_hit->hit_direction == 0)
         {
             if (game->player_infos->ray_rotation_angle >= 0 && game->player_infos->ray_rotation_angle < M_PI)
@@ -266,11 +298,15 @@ void cast_rays(t_base *game)
             else
                  n = 3;
         }
+        n = check_if_inside_portal(game->player_infos, n);
         tex_x = get_texture_x(game, wall_x, n);
         draw_wall_line(game, wall_height, colome, tex_x, n);
         //    draw_line2(game, game->player_infos->wall_hit->lenght, 0x0000000);
         game->player_infos->ray_rotation_angle += increment;
         colome++;
+        game->ceiling_color = saved_c;
+        game->floor_color = saved_f;
+         
         
     }
    

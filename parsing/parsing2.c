@@ -53,7 +53,8 @@ void	add_map_line(t_base *game, char *line)
 		game->map_width = ft_strlen2(line);
 }
 
-void	parse_color_line(t_base *game, char *line)
+void	
+parse_color_line(t_base *game, char *line)
 {
 	if (ft_strncmp(line, "C ", 2) == 0)
 		game->ceiling_color = parse_color(game, ft_strtrim(line + 2, " "));
@@ -67,23 +68,33 @@ int	check_line(t_base *game, char *line)
 	char		**tokens;
 	char		*color_line;
 
-	if (config_lines < 6)
+	if (config_lines < 7)
 	{
 		if (line[0] == '\n' && line[1] == '\0')
 			return (0);
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0
 			|| ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ",
-				3) == 0)
+				3) == 0 || ft_strncmp(line, "DO ",3) == 0)
 			ft_parse_texture(game, line);
-		else if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ",
-					2) == 0))
+		else if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0) && (game->checkc == 0 || game->checkf == 0))
 		{
-			parse_color_line(game, line);
+			if (game->checkc == 0 && ft_strncmp(line, "C ", 2) == 0)
+			{
+				parse_color_line(game, line);
+				game->checkc = 1;
+			}
+			else if (game->checkf == 0 && ft_strncmp(line, "F ", 2) == 0)
+			{
+				parse_color_line(game, line);
+				game->checkf = 1;
+			}
 		}
 		else
 			error_exit(game, line);
 		config_lines++;
 	}
+	else if (game->checkc == 0|| game->checkf == 0)
+			error_exit(game, line);
 	else
 		add_map_line(game, line);
 	return (0);

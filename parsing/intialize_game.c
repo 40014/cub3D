@@ -29,12 +29,14 @@ void	ft_init_struct_game(t_base *game)
 	game->player_y = -1;
 	game->floor_color = -1;
 	game->ceiling_color = -1;
-	while (j < 4)
+	game->checkc = 0;
+	game->checkf = 0;
+	while (j < 5)
     {
         game->path[j] = NULL;
         j++;
     }
-    while (i < 4)
+    while (i < 5)
     {
         game->textures[i] = malloc(sizeof(t_texture));
         if (!game->textures[i])
@@ -71,6 +73,8 @@ int	key_press(int keycode, t_base *game)
 		game->s_keys->left = 1;
 	else if (keycode == RIGHT_ARROW)
 		game->s_keys->right = 1;
+	else if (keycode == O_KEY)
+		game->s_keys->o = 1;
 	return (0);
 }
 
@@ -88,6 +92,8 @@ int	key_release(int keycode, t_base *game)
 		game->s_keys->left = 0;
 	else if (keycode == RIGHT_ARROW)
 		game->s_keys->right = 0;
+	else if (keycode == O_KEY)
+		game->s_keys->o = 0;
 	return (0);
 }
 
@@ -102,6 +108,7 @@ void	initialize_keys(t_base *game)
 	game->s_keys->w = 0;
 	game->s_keys->s = 0;
 	game->s_keys->a = 0;
+	game->s_keys->o = 0;
 	game->s_keys->d = 0;
 	game->s_keys->left = 0;
 	game->s_keys->right = 0;

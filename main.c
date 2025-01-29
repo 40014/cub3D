@@ -23,6 +23,7 @@ void load_all_textures(t_base *game)
     load_texture(game, game->textures[1], game->path[1]);
     load_texture(game, game->textures[2], game->path[2]);
     load_texture(game, game->textures[3], game->path[3]);
+    load_texture(game, game->textures[4], game->path[4]);
 }
 
 
@@ -39,6 +40,28 @@ int handle_mouse_move(int x, int y, t_base *game)
     mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     return (0);
 }
+
+void change_map_and_dup(t_base *game)
+{
+    int j;
+    int i;
+
+    j = 0;
+    game->player_infos->map2 = malloc(sizeof(char*) * game->map_height);
+    while(j < game->map_height)
+    {
+        i = 0;
+        game->player_infos->map2[j] = ft_strdup(game->map[j]);
+        while(i < game->map_width)
+        {
+            if (game->map[j][i] == 'D')
+                game->map[j][i] = '1';
+            i++;
+        }
+        j++;
+    }
+}
+
 
 int main(int ac, char **av)
 {
@@ -73,12 +96,19 @@ int main(int ac, char **av)
 
     player_infos.rotation_speed = R_SPEED * (M_PI / 180);
     player_infos.move_speed = P_SPEED;
+   
     game.player_infos = &player_infos;
+    change_map_and_dup(&game);
    init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
+
+    
     cast_rays(&game);
+    
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
-    // mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
+    //  mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
+   
     mlx_loop_hook(game.mlx_ptrs->mlx_ptr, game_loop, &game);
+   
     mlx_loop(mlx_ptrs.mlx_ptr);
     return(0);
 }

@@ -1,6 +1,6 @@
 NO   texture/path_to_the_north_texture.xpm
 SO   texture/path_to_the_south_texture.xpm
-WE   texture/path_to_the_west_texture.xpm
+O   texture/path_to_the_west_texture.xpm
 EA  texture/path_to_the_east_texture.xpm
 
 F 173,216,230

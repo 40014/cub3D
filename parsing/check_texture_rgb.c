@@ -67,6 +67,8 @@ void	ft_parse_texture(t_base *game, char *tokens)
 		index = 2;
 	else if (ft_strncmp(split[0], "EA", 3) == 0)
 		index = 3;
+	else if (ft_strncmp(split[0], "DO", 3) == 0)
+		index = 4;
 	game->path[index] = ft_strdup(path);
 	if (path != NULL)
 		free(path);
