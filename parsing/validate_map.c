@@ -40,17 +40,29 @@ void	handle_player(t_base *game, int i, int j, int *player_found)
 
 void	check_map_closed(t_base *game, char c, int i, int j)
 {
-	if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	int 	vertical_wall;
+	int		horizontal_wall;
+
+	if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == 'D')
 	{
-		if (i == 0 || j == 0 || i == game->map_height - 1
-			|| j == game->map_width - 1 || game->map[i - 1][j] == ' '
-			|| game->map[i + 1][j] == ' ' || game->map[i][j - 1] == ' '
-			|| game->map[i][j + 1] == ' ')
+		if (i == 0 || j == 0 || i == game->map_height - 1 || j == game->map_width - 1 || game->map[i - 1][j] == ' ' || game->map[i + 1][j] == ' ' || game->map[i][j - 1] == ' ' || game->map[i][j + 1] == ' ')
 		{
 			ft_printf_err("Error\nMap is not closed\n");
 			free_split(game->map);
 			free_texture(game->textures);
 			exit(1);
+		}
+		else if (c == 'D')
+		{
+			vertical_wall = (game->map[i - 1][j] == '1') + (game->map[i + 1][j] == '1');
+			horizontal_wall = (game->map[i][j - 1] == '1') + (game->map[i][j + 1] == '1');
+			if (vertical_wall < 2 && horizontal_wall < 2)
+			{
+				ft_printf_err("Error\nThe door should be surrounded by at least two walls\n");
+				free_split(game->map);
+				free_texture(game->textures);
+				exit(1);
+			}
 		}
 	}
 }

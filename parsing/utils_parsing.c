@@ -25,11 +25,19 @@ void	cleanup(t_base *game, char *line)
 void	error_exit(t_base *game, char *line)
 {
 	char	*str;
+	int		i;
 
-	str = "Error\nInvalid type identifier should be as follows[NO,SO,WE,EA,F,C]\n";
+	i = 0;
+	str = "Error\nInvalid t identifier should be as follows[NO,SO,WE,EA,F,C]\n";
 	ft_printf_err(str);
 	cleanup(game, line);
-	exit(1);
+	while (i < 6)
+	{
+		if (game->path[i] != NULL)
+			free(game->path[i]);
+		i++;
+	}
+	exit(110);
 }
 
 void	error_color(t_base *game, char **rgb, char *str)

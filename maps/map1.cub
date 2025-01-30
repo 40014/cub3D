@@ -4,7 +4,8 @@ WE   texture/path_to_the_west_texture.xpm
 EA   texture/path_to_the_east_texture.xpm
 
 
-
+D1 texture/scifidoor.xpm
+D2  texture/path_to_the_east_texture.xpm
 
 C 0, 0,         0  
 F 173,216,230

@@ -4,9 +4,10 @@ NO texture/path_to_the_north_texture.xpm
 SO texture/path_to_the_south_texture.xpm
 WE texture/path_to_the_west_texture.xpm
 EA texture/path_to_the_east_texture.xpm
-DO texture/scifidoor.xpm
 
 
+D1 texture/scifidoor.xpm
+D2  texture/path_to_the_east_texture.xpm
 
 
 F 192,     192,    192
@@ -17,7 +18,7 @@ F 192,     192,    192
 100000000000000000000001
 100000000000000000000001
 1D1D1D1D1D1D1D1D1D1D1D11
-11D1D1D1D1D1D1D1D1D1D1D1
+11D1D1D1D1D11011D1D1D1D1
 100000100000000001000001
 100001000000000000100001
 100001000000000000100001

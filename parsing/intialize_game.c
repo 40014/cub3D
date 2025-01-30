@@ -29,14 +29,20 @@ void	ft_init_struct_game(t_base *game)
 	game->player_y = -1;
 	game->floor_color = -1;
 	game->ceiling_color = -1;
-	game->checkc = 0;
-	game->checkf = 0;
-	while (j < 5)
+	game->check_NO = 0;
+	game->check_SO = 0;
+	game->check_WE = 0;
+	game->check_EA = 0;
+	game->check_F = 0;
+	game->check_C = 0;
+	game->check_D1 = 0;
+	game->check_D2 = 0;
+	while (j < 6)
     {
         game->path[j] = NULL;
         j++;
     }
-    while (i < 5)
+    while (i < 6)
     {
         game->textures[i] = malloc(sizeof(t_texture));
         if (!game->textures[i])
@@ -59,6 +65,7 @@ void	initialize_map(t_base *game, char *line)
 
 int	key_press(int keycode, t_base *game)
 {
+	
 	if (keycode == ESC)
 		exit(0);
 	if (keycode == W_KEY)
@@ -75,6 +82,12 @@ int	key_press(int keycode, t_base *game)
 		game->s_keys->right = 1;
 	else if (keycode == O_KEY)
 		game->s_keys->o = 1;
+	else if (keycode == UP)
+    {
+        game->weapon_sprite->current_frame++;
+        if (game->weapon_sprite->current_frame >= game->weapon_sprite->frame_count)
+            game->weapon_sprite->current_frame = 0; 
+	}
 	return (0);
 }
 
@@ -108,8 +121,8 @@ void	initialize_keys(t_base *game)
 	game->s_keys->w = 0;
 	game->s_keys->s = 0;
 	game->s_keys->a = 0;
-	game->s_keys->o = 0;
 	game->s_keys->d = 0;
+	game->s_keys->o = 0;
 	game->s_keys->left = 0;
 	game->s_keys->right = 0;
 	game->s_keys->minimap_p_x = 0;

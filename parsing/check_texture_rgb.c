@@ -59,17 +59,43 @@ void	ft_parse_texture(t_base *game, char *tokens)
 	path = ft_strtrim(tokens + 3, " \t\n");
 	check_texture_file(game, path, tokens);
 	split = ft_split(tokens, ' ');
-	if (ft_strncmp(split[0], "NO", 3) == 0)
+	if (ft_strncmp(split[0], "NO", 3) == 0 && game->check_NO != 1)
+	{
+		game->check_NO = 1;
 		index = 0;
-	else if (ft_strncmp(split[0], "SO", 3) == 0)
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(split[0], "SO", 3) == 0 && game->check_SO != 1)
+	{
+		game->check_SO = 1;
 		index = 1;
-	else if (ft_strncmp(split[0], "WE", 3) == 0)
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(split[0], "WE", 3) == 0 && game->check_WE != 1)
+	{
+		game->check_WE = 1;
 		index = 2;
-	else if (ft_strncmp(split[0], "EA", 3) == 0)
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(split[0], "EA", 3) == 0 && game->check_EA != 1)
+	{
+		game->check_EA = 1;
 		index = 3;
-	else if (ft_strncmp(split[0], "DO", 3) == 0)
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(split[0], "D1", 3) == 0 && game->check_D1 != 1)
+	{
+		game->check_D1 = 1;
 		index = 4;
-	game->path[index] = ft_strdup(path);
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(split[0], "D2", 3) == 0 && game->check_D2 != 1)
+	{
+		game->check_D2 = 1;
+		index = 5;
+		game->path[index] = ft_strdup(path);
+	}
+	// game->path[index] = ft_strdup(path);
 	if (path != NULL)
 		free(path);
 	free_split(split);

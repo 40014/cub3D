@@ -17,7 +17,7 @@
 # define SCREEN_SIZE 1200
 # define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  1
+# define P_SPEED  2
 # define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
@@ -31,7 +31,8 @@
 # define LEFT_ARROW   65361
 # define RIGHT_ARROW  65363
 # define ESC          65307
-# define MOUSE_SPED  0.006
+# define UP           65362
+# define MOUSE_SPED  0.06
 
 //# define M_PI 3.14159265358979323846
 
@@ -59,6 +60,17 @@ typedef struct s_texture
     int     line_length;
     int     endian;
 } t_texture;
+
+typedef struct s_sprite
+{
+    void **frames;
+    int frame_count;
+    int current_frame;
+    double x;
+    double y;
+    int width;
+    int height;
+} t_sprite;
 
 typedef struct hit
 {
@@ -133,15 +145,22 @@ typedef struct cub
     int     player_x;       
     int     player_y;       
     char    player_dir;
-    int     checkc;
-    int     checkf;     
-    t_texture       *textures[5];
-    char        *path[5];
+    int     check_NO;
+    int     check_WE;
+    int     check_SO;
+    int     check_EA;
+    int     check_F;
+    int     check_C;
+    int     check_D1;
+    int     check_D2;    
+    t_texture       *textures[6];
+    char        *path[6];
     int     floor_color;    
     int     ceiling_color;
     t_keys  *s_keys;
     t_mlx_ptrs  *mlx_ptrs;
     t_player_info *player_infos;
+    t_sprite *weapon_sprite;
 } t_base;
 
 
@@ -177,6 +196,8 @@ void error_color(t_base *game, char **rgb, char *str);
 void validate_map(t_base *game);
 void pad_map(t_base *game);
 void	initialize_map(t_base *game, char *line);
+void init_weapon_sprite(t_base *game);
+void draw_weapon_sprite(t_base *game);
 
 
 

@@ -37,6 +37,7 @@ int handle_mouse_move(int x, int y, t_base *game)
     game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
     cast_rays(game);
     draw_minimap(game);
+    draw_weapon_sprite(game);
     mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     return (0);
 }
@@ -76,17 +77,14 @@ int main(int ac, char **av)
     ft_init_struct_game(&game);
     parsing(&game, av[1]);
     mlx_ptrs.mlx_ptr = mlx_init();
-    // mlx_ptrs.mlx_ptr = &mlx_ptrs;
     game.mlx_ptrs = &mlx_ptrs;
     mlx_ptrs.win = mlx_new_window(mlx_ptrs.mlx_ptr, SCREEN_SIZE, SCREEN_HEIGHT, "Cub3D");
     mlx_ptrs.img = mlx_new_image(mlx_ptrs.mlx_ptr, SCREEN_SIZE, SCREEN_HEIGHT);
     mlx_ptrs.addr = mlx_get_data_addr(mlx_ptrs.img, &mlx_ptrs.bpp, &mlx_ptrs.line_length, &mlx_ptrs.endian);
     load_all_textures(&game);
+    init_weapon_sprite(&game);
     initialize_keys(&game);
     // draw map
-    mlx_hook(mlx_ptrs.win, 2, 1L << 0, key_press, &game);
-    mlx_hook(mlx_ptrs.win, 3, 1L << 1, key_release, &game);
-    //draw_map(&game);
     // init_player_infos
     player_infos.wall_hit = &wall_hit;
     player_infos.check_one_cub = 0;
@@ -99,16 +97,15 @@ int main(int ac, char **av)
    
     game.player_infos = &player_infos;
     change_map_and_dup(&game);
-   init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
-
-    
+    init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
     cast_rays(&game);
-    
+    draw_minimap(&game);
+    draw_weapon_sprite(&game);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
-    //   mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
-   
+    mlx_hook(mlx_ptrs.win, 2, 1L << 0, key_press, &game);
+    mlx_hook(mlx_ptrs.win, 3, 1L << 1, key_release, &game);
+    mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
     mlx_loop_hook(game.mlx_ptrs->mlx_ptr, game_loop, &game);
-   
     mlx_loop(mlx_ptrs.mlx_ptr);
     return(0);
 }
