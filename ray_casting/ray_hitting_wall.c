@@ -221,7 +221,6 @@ int check_if_inside_portal(t_player_info *player_infos, int n)
     int x;
     int y;
 
-
     if (player_infos->wall_hit->hit_direction == 0)
     {
        
