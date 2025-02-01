@@ -20,6 +20,7 @@ void	check_invalid_char(t_base *game, char c)
 		ft_printf_err("Error\nInvalid character in map\n");
 		free_split(game->map);
 		free_texture(game->textures);
+		free_path(game);
 		exit(1);
 	}
 }
@@ -31,6 +32,7 @@ void	handle_player(t_base *game, int i, int j, int *player_found)
 		ft_printf_err("Error\nMultiple player positions found\n");
 		free_split(game->map);
 		free_texture(game->textures);
+		free_path(game);
 		exit(1);
 	}
 	*player_found = 1;
@@ -50,6 +52,7 @@ void	check_map_closed(t_base *game, char c, int i, int j)
 			ft_printf_err("Error\nMap is not closed\n");
 			free_split(game->map);
 			free_texture(game->textures);
+			free_path(game);
 			exit(1);
 		}
 		else if (c == 'D')
@@ -61,6 +64,7 @@ void	check_map_closed(t_base *game, char c, int i, int j)
 				ft_printf_err("Error\nThe door should be surrounded by at least two walls\n");
 				free_split(game->map);
 				free_texture(game->textures);
+				free_path(game);
 				exit(1);
 			}
 		}
@@ -74,6 +78,7 @@ void	validate_player_presence(t_base *game, int player_found)
 		ft_printf_err("Error\nNo player position found\n");
 		free_split(game->map);
 		free_texture(game->textures);
+		free_path(game);
 		exit(1);
 	}
 }

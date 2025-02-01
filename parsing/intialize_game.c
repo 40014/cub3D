@@ -12,10 +12,10 @@
 
 #include "../cub.h"
 
-void	ft_init_struct_game(t_base *game)
+void ft_init_struct_game(t_base *game)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -38,23 +38,25 @@ void	ft_init_struct_game(t_base *game)
 	game->check_D1 = 0;
 	game->check_D2 = 0;
 	while (j < 6)
-    {
-        game->path[j] = NULL;
-        j++;
-    }
-    while (i < 6)
-    {
-        game->textures[i] = malloc(sizeof(t_texture));
-        if (!game->textures[i])
-        {
-            ft_printf_err("Error\nFailed to allocate memory for texture \n");
-            exit(1);
-        }
-        i++;
-    }
+	{
+		game->path[j] = NULL;
+		j++;
+	}
+	while (i < 6)
+	{
+		game->textures[i] = malloc(sizeof(t_texture));  
+		if (!game->textures[i])
+		{
+			ft_printf_err("Error\nFailed to allocate memory for texture struct\n");
+			exit(1);
+		}
+		game->textures[i]->img_ptr = NULL;
+		game->textures[i]->data = NULL;
+		i++;
+	}
 }
 
-void	initialize_map(t_base *game, char *line)
+void initialize_map(t_base *game, char *line)
 {
 	game->map = malloc(sizeof(char *) * 2);
 	game->map[0] = ft_strdup(line);
@@ -63,11 +65,10 @@ void	initialize_map(t_base *game, char *line)
 	game->map_width = ft_strlen2(line);
 }
 
-int	key_press(int keycode, t_base *game)
+int key_press(int keycode, t_base *game)
 {
-	
 	if (keycode == ESC)
-		exit(0);
+		exit_game(game);
 	if (keycode == W_KEY)
 		game->s_keys->w = 1;
 	else if (keycode == A_KEY)
@@ -83,15 +84,15 @@ int	key_press(int keycode, t_base *game)
 	else if (keycode == O_KEY)
 		game->s_keys->o = 1;
 	else if (keycode == UP)
-    {
-        game->weapon_sprite->current_frame++;
-        if (game->weapon_sprite->current_frame >= game->weapon_sprite->frame_count)
-            game->weapon_sprite->current_frame = 0; 
+	{
+		game->weapon_sprite->current_frame++;
+		if (game->weapon_sprite->current_frame >= game->weapon_sprite->frame_count)
+			game->weapon_sprite->current_frame = 0;
 	}
 	return (0);
 }
 
-int	key_release(int keycode, t_base *game)
+int key_release(int keycode, t_base *game)
 {
 	if (keycode == W_KEY)
 		game->s_keys->w = 0;
@@ -110,7 +111,31 @@ int	key_release(int keycode, t_base *game)
 	return (0);
 }
 
-void	initialize_keys(t_base *game)
+int mouse_press(int button, int x, int y, t_base *game)
+{
+	(void)x;
+	(void)y;
+
+	if (button == MOUSE_LEFT)
+		game->mouse_left_pressed = 1;
+	else if (button == MOUSE_RIGHT)
+		game->mouse_right_pressed = 1;
+	return (0);
+}
+
+int mouse_release(int button, int x, int y, t_base *game)
+{
+	(void)x;
+	(void)y;
+
+	if (button == MOUSE_LEFT)
+		game->mouse_left_pressed = 0;
+	else if (button == MOUSE_RIGHT)
+		game->mouse_right_pressed = 0;
+	return (0);
+}
+
+void initialize_keys(t_base *game)
 {
 	game->s_keys = malloc(sizeof(t_keys));
 	if (!game->s_keys)
@@ -127,4 +152,6 @@ void	initialize_keys(t_base *game)
 	game->s_keys->right = 0;
 	game->s_keys->minimap_p_x = 0;
 	game->s_keys->minimap_p_y = 0;
+	game->mouse_left_pressed = 0;
+	game->mouse_right_pressed = 0;
 }

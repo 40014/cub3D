@@ -12,10 +12,10 @@
 
 #include "../cub.h"
 
-void	check_commas(t_base *game, char *line)
+void check_commas(t_base *game, char *line)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -25,19 +25,23 @@ void	check_commas(t_base *game, char *line)
 			j++;
 		i++;
 	}
+	i = 0;
 	if (j > 2)
 	{
 		printf("Error\nIvalid color format, more than two commas\n");
 		cleanup(game, line);
 		free(game->readmap);
+		free_path(game);
 		exit(19);
 	}
 }
 
-void	check_texture_file(t_base *game, char *file, char *tokens)
+void check_texture_file(t_base *game, char *file, char *tokens)
 {
-	int	fd;
+	int fd;
+	int i;
 
+	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -45,15 +49,16 @@ void	check_texture_file(t_base *game, char *file, char *tokens)
 		free_texture(game->textures);
 		free(file);
 		free(tokens);
+		free_path(game);
 		exit(111);
 	}
 }
 
-void	ft_parse_texture(t_base *game, char *tokens)
+void ft_parse_texture(t_base *game, char *tokens)
 {
-	int		index;
-	char	*path;
-	char	**split;
+	int index;
+	char *path;
+	char **split;
 
 	path = NULL;
 	path = ft_strtrim(tokens + 3, " \t\n");
@@ -95,16 +100,15 @@ void	ft_parse_texture(t_base *game, char *tokens)
 		index = 5;
 		game->path[index] = ft_strdup(path);
 	}
-	// game->path[index] = ft_strdup(path);
 	if (path != NULL)
 		free(path);
 	free_split(split);
 }
 
-char	**process_line_to_rgb(t_base *game, char *line)
+char **process_line_to_rgb(t_base *game, char *line)
 {
-	char	*trimmed_line;
-	char	**rgb;
+	char *trimmed_line;
+	char **rgb;
 
 	trimmed_line = ft_strtrim(line, " \n");
 	free(line);
@@ -113,16 +117,16 @@ char	**process_line_to_rgb(t_base *game, char *line)
 	free(trimmed_line);
 	if (rgb[0] == NULL || rgb[1] == NULL || rgb[2] == NULL || rgb[3] != NULL)
 		error_color(game, rgb,
-			"Error\nInvalid color : requires 3 values separated by commas.\n");
+					"Error\nInvalid color : requires 3 values separated by commas.\n");
 	return (rgb);
 }
 
-int	parse_color(t_base *game, char *line)
+int parse_color(t_base *game, char *line)
 {
-	char	**rgb;
-	int		color;
-	char	*trimmed_rgb;
-	int		i;
+	char **rgb;
+	int color;
+	char *trimmed_rgb;
+	int i;
 
 	i = 0;
 	color = -1;
@@ -137,11 +141,9 @@ int	parse_color(t_base *game, char *line)
 		i++;
 	}
 	color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
-	if (ft_atoi(rgb[0]) < 0 || ft_atoi(rgb[0]) > 255 || ft_atoi(rgb[1]) < 0
-		|| ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[2]) < 0
-		|| ft_atoi(rgb[2]) > 255)
+	if (ft_atoi(rgb[0]) < 0 || ft_atoi(rgb[0]) > 255 || ft_atoi(rgb[1]) < 0 || ft_atoi(rgb[1]) > 255 || ft_atoi(rgb[2]) < 0 || ft_atoi(rgb[2]) > 255)
 		error_color(game, rgb,
-			"Error\nColor values must be between 0 and 255.\n");
+					"Error\nColor values must be between 0 and 255.\n");
 	free_split(rgb);
 	return (color);
 }

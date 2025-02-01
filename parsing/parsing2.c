@@ -118,6 +118,7 @@ int	parse_map(t_base *game, int fd)
 	{
 		ft_printf_err("Error\nNo map found\n");
 		cleanup(game, NULL);
+		free_path(game);
 		exit(1);
 	}
 	pad_map(game);

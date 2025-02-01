@@ -1,14 +1,14 @@
 F 232,172,144
 
 NO texture/path_to_the_north_texture.xpm
-SO texture/path_to_the_south_texture.xpm
+SO texture/path_to_the_south_texture.xpm  
 WE texture/path_to_the_west_texture.xpm
 EA  texture/path_to_the_east_texture.xpm
 
 D1 texture/scifidoor.xpm
 D2  texture/path_to_the_east_texture.xpm
 
-C 13, 152, 186
+C 18, 9, 9
 
 
 

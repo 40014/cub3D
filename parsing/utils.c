@@ -24,7 +24,18 @@ void	free_split(char **str)
 	}
 	free(str);
 }
+void	free_path(t_base *game)
+{
+	int		i;
 
+	i = 0;
+	while (i < 6)
+	{
+		if (game->path[i])
+			free(game->path[i]);
+		i++;
+	}
+}
 void	free_texture(char **textur)
 {
 	int	i;
@@ -33,7 +44,10 @@ void	free_texture(char **textur)
 	while (i < 6)
 	{
 		if (textur[i] != NULL)
+		{
 			free(textur[i]);
+			textur[i] = NULL;
+		}
 		i++;
 	}
 }

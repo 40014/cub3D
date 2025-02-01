@@ -1,13 +1,13 @@
-NAME = cub3d
+NAME = cub3D
 
-CFLAGS = -Wall -Wextra -Werror -w -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -w #-fsanitize=address -g3
 
 FLAGS =  -lmlx -lXext -lX11 -lm -lz 
 
 RAY_CASTING =	ray_casting/find_inters_up_left.c ray_casting/find_inters_down_right.c \
 				ray_casting/find_inters_down_left.c ray_casting/find_inters_straight.c  \
 				main.c ray_casting/ray_hitting_wall.c ray_casting/find_inters_up_right.c \
-				movement/moving_player.c  sprit_animation.c
+				movement/moving_player.c parsing/free_game.c sprit_animation.c
 			
 			
 PARSING =	parsing/check_texture_rgb.c parsing/ft_split.c parsing/utils.c                   \

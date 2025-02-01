@@ -21,7 +21,7 @@ void draw_sprite_frame(t_base *game, t_sprite *sprite)
         while (x < sprite->width)
         {
             color = *(unsigned int *)(frame_data + (y * line_length + x * (bpp / 8)));
-            if (color != 0x000000)
+            if (color != 0xFF000000)
                 my_mlx_pixel_put(game, sprite->x + x - sprite->width / 2, sprite->y + y, color);
             x++;
         }

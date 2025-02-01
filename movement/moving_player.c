@@ -438,6 +438,18 @@ int game_loop(t_base *game)
             mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
         }
     }
+    if (game->mouse_left_pressed)
+    {
+        game->player_infos->rotation_angle -= MOUSE_SPED;
+        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
+        i = 1;
+    }
+    if (game->mouse_right_pressed)
+    {
+        game->player_infos->rotation_angle += MOUSE_SPED;
+        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
+        i = 1;
+    }
     if (i == 1)
     {
         //   mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);

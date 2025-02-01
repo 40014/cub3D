@@ -17,7 +17,7 @@
 # define SCREEN_SIZE 1200
 # define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  2
+# define P_SPEED  1
 # define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
@@ -32,6 +32,8 @@
 # define RIGHT_ARROW  65363
 # define ESC          65307
 # define UP           65362
+# define MOUSE_LEFT   1
+# define MOUSE_RIGHT  3
 # define MOUSE_SPED  0.06
 
 //# define M_PI 3.14159265358979323846
@@ -152,7 +154,9 @@ typedef struct cub
     int     check_F;
     int     check_C;
     int     check_D1;
-    int     check_D2;    
+    int     check_D2;
+    int mouse_right_pressed;
+    int mouse_left_pressed;
     t_texture       *textures[6];
     char        *path[6];
     int     floor_color;    
@@ -161,6 +165,7 @@ typedef struct cub
     t_mlx_ptrs  *mlx_ptrs;
     t_player_info *player_infos;
     t_sprite *weapon_sprite;
+
 } t_base;
 
 
@@ -190,6 +195,7 @@ void draw_square(t_base *game, int x, int y, int color);
 void draw_map(t_base *game);
 void draw_minimap(t_base *game);
 void	free_texture(char **textur);
+void	free_path(t_base *game);
 void cleanup(t_base *game, char *line);
 void error_exit(t_base *game, char *line);
 void error_color(t_base *game, char **rgb, char *str);
@@ -198,6 +204,10 @@ void pad_map(t_base *game);
 void	initialize_map(t_base *game, char *line);
 void init_weapon_sprite(t_base *game);
 void draw_weapon_sprite(t_base *game);
+int mouse_press(int button, int x, int y, t_base *game);
+int mouse_release(int button, int x, int y, t_base *game);
+void    exit_game(t_base *game);
+
 
 
 

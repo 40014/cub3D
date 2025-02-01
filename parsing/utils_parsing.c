@@ -31,20 +31,19 @@ void	error_exit(t_base *game, char *line)
 	str = "Error\nInvalid t identifier should be as follows[NO,SO,WE,EA,F,C]\n";
 	ft_printf_err(str);
 	cleanup(game, line);
-	while (i < 6)
-	{
-		if (game->path[i] != NULL)
-			free(game->path[i]);
-		i++;
-	}
+	free_path(game);
 	exit(110);
 }
 
 void	error_color(t_base *game, char **rgb, char *str)
 {
+	int		i;
+
+	i = 0;
 	ft_printf_err(str);
 	free_split(rgb);
 	cleanup(game, NULL);
 	free(game->readmap);
+	free_path(game);
 	exit(1);
 }
