@@ -85,9 +85,12 @@ int key_press(int keycode, t_base *game)
 		game->s_keys->o = 1;
 	else if (keycode == UP)
 	{
-		game->weapon_sprite->current_frame++;
-		if (game->weapon_sprite->current_frame >= game->weapon_sprite->frame_count)
-			game->weapon_sprite->current_frame = 0;
+		if (!game->weapon_sprite->is_animating)
+        {
+            game->weapon_sprite->is_animating = 1;
+            game->weapon_sprite->current_frame = 1;
+            game->weapon_sprite->frame_timer = 0;
+        }
 	}
 	return (0);
 }

@@ -14,10 +14,10 @@
 # define CUB_SIZE 32
 # define MINI_MAP_SIZE 2
 # define MINI_MAP_SIZE_PLAYER 4
-# define SCREEN_SIZE 1200
-# define SCREEN_HEIGHT 1000
+# define SCREEN_SIZE 1600
+# define SCREEN_HEIGHT 1200
 # define FOV 60
-# define P_SPEED  2
+# define P_SPEED  3
 # define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
@@ -68,6 +68,8 @@ typedef struct s_sprite
     void **frames;
     int frame_count;
     int current_frame;
+    int     is_animating;
+    int     frame_timer;
     double x;
     double y;
     int width;
@@ -207,6 +209,7 @@ void draw_weapon_sprite(t_base *game);
 int mouse_press(int button, int x, int y, t_base *game);
 int mouse_release(int button, int x, int y, t_base *game);
 void    exit_game(t_base *game);
+void weapon_animation(t_base *game);
 
 
 

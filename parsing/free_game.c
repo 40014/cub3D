@@ -19,7 +19,7 @@ void free_textures(t_base *game)
 {
     int i = 0;
 
-    while (i < 6)
+    while (i < 7)
     {
         if (game->textures[i])
         {

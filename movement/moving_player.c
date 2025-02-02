@@ -450,6 +450,11 @@ int game_loop(t_base *game)
         game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
         i = 1;
     }
+    if (game->weapon_sprite->is_animating)
+    {
+        weapon_animation(game);
+        i = 1;
+    }
     if (i == 1)
     {
         //   mlx_clear_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win);
