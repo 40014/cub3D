@@ -34,7 +34,7 @@
 # define UP           65362
 # define MOUSE_LEFT   1
 # define MOUSE_RIGHT  3
-# define MOUSE_SPED  0.06
+# define MOUSE_SPED  0.02
 
 //# define M_PI 3.14159265358979323846
 
