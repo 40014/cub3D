@@ -41,6 +41,8 @@ void    draw_minimap_walls(t_base *game, t_mini_range *mini_map_range)
                 color = 0x000000;
             else if (game->player_infos->map2[j][i] == '0')
                 color = 0xAAAAAA;
+            else if (game->player_infos->map2[j][i] == 'D')
+                color = 0xff8633;
             else if (game->player_infos->map2[j][i] == 'N' || game->player_infos->map2[j][i] == 'S' 
                 || game->player_infos->map2[j][i] == 'W' || game->player_infos->map2[j][i] == 'E')
                 color = 0xAAAAAA;

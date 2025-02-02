@@ -36,13 +36,12 @@ void ft_init_struct_game(t_base *game)
 	game->check_F = 0;
 	game->check_C = 0;
 	game->check_D1 = 0;
-	game->check_D2 = 0;
-	while (j < 6)
+	while (j < 5)
 	{
 		game->path[j] = NULL;
 		j++;
 	}
-	while (i < 6)
+	while (i < 5)
 	{
 		game->textures[i] = malloc(sizeof(t_texture));  
 		if (!game->textures[i])
@@ -153,8 +152,6 @@ void initialize_keys(t_base *game)
 	game->s_keys->o = 0;
 	game->s_keys->left = 0;
 	game->s_keys->right = 0;
-	game->s_keys->minimap_p_x = 0;
-	game->s_keys->minimap_p_y = 0;
 	game->mouse_left_pressed = 0;
 	game->mouse_right_pressed = 0;
 }

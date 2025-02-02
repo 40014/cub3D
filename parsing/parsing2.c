@@ -67,13 +67,13 @@ int	check_line(t_base *game, char *line)
 	char		**tokens;
 	char		*color_line;
 
-	if (config_lines < 8)
+	if (config_lines < 7)
 	{
 		if (line[0] == '\n' && line[1] == '\0')
 			return (0);
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0
 			|| ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ",
-				3) == 0 || ft_strncmp(line, "D1 ", 3) == 0 || ft_strncmp(line, "D2 ", 3) == 0)
+				3) == 0 || ft_strncmp(line, "D1 ", 3) == 0 )
 			ft_parse_texture(game, line);
 		else if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ",
 					2) == 0) && game->check_C != 1 || game->check_F != 1)
@@ -94,7 +94,7 @@ int	check_line(t_base *game, char *line)
 		config_lines++;
 	}
 	else if (game->check_NO != 1 || game->check_SO != 1 || game->check_WE != 1 || game->check_EA != 1
-			 || game->check_D1 != 1 || game->check_D2 != 1 || game->check_C != 1 || game->check_F != 1)
+			 || game->check_D1 != 1 || game->check_C != 1 || game->check_F != 1)
 	{
 		error_exit(game, line);
 	}

@@ -163,18 +163,16 @@ void close_doors(t_player_info *player_infos, double lenght)
 
     y = (int)player_infos->j / CUB_SIZE;
     x = (int)player_infos->i / CUB_SIZE;
-    if (y - 2 >= 0 && y + 2 < player_infos->map_height && x - 2 >= 0 && x + 2 < player_infos->map_width)
-    {
-        if (player_infos->map2[y + 2][x] == 'D')
-            player_infos->map[y + 2][x] = '1';
-        else if (player_infos->map2[y - 2][x] == 'D')
-            player_infos->map[y - 2][x] = '1';
-        else if (player_infos->map2[y][x + 2] == 'D')
-            player_infos->map[y][x + 2] = '1';
-        else if (player_infos->map2[y][x - 2] == 'D')
-            player_infos->map[y][x - 2] = '1';
-    }
-    if (player_infos->map2[y + 1][x - 1] == 'D')
+
+    if (y + 2 < player_infos->map_height && player_infos->map2[y + 2][x] == 'D')
+        player_infos->map[y + 2][x] = '1';
+    else if (y - 2 >= 0 && player_infos->map2[y - 2][x] == 'D')
+        player_infos->map[y - 2][x] = '1';
+    else if (x + 2 < player_infos->map_width && player_infos->map2[y][x + 2] == 'D')
+        player_infos->map[y][x + 2] = '1';
+    else if (x - 2 >= 0 && player_infos->map2[y][x - 2] == 'D')
+        player_infos->map[y][x - 2] = '1';
+    else if (player_infos->map2[y + 1][x - 1] == 'D')
         player_infos->map[y + 1][x - 1] = '1';
     else if (player_infos->map2[y + 1][x + 1] == 'D')
         player_infos->map[y + 1][x + 1] = '1';
@@ -373,7 +371,7 @@ int game_loop(t_base *game)
     int i;
 
     i = 0;
-    
+
     if (game->s_keys->right)
     {
         game->player_infos->rotation_angle += game->player_infos->rotation_speed;

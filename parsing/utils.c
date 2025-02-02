@@ -29,7 +29,7 @@ void	free_path(t_base *game)
 	int		i;
 
 	i = 0;
-	while (i < 6)
+	while (i < 5)
 	{
 		if (game->path[i])
 			free(game->path[i]);

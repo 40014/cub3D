@@ -30,20 +30,6 @@ void load_all_textures(t_base *game)
     }
 }
 
-int handle_mouse_move(int x, int y, t_base *game)
-{
-    static int last_x = SCREEN_SIZE / 2;
-    int     delta_x;
-
-    delta_x = x - last_x;
-    game->player_infos->rotation_angle = delta_x * MOUSE_SPED;
-    game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
-    cast_rays(game);
-    draw_minimap(game);
-    draw_weapon_sprite(game);
-    mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
-    return (0);
-}
 
 void change_map_and_dup(t_base *game)
 {
@@ -104,7 +90,6 @@ void initialize_game(t_base *game)
     mlx_hook(mlx_ptrs.win, 4, 1L << 2, mouse_press, game);
     mlx_hook(mlx_ptrs.win, 5, 1L << 3, mouse_release, game);
     mlx_hook(mlx_ptrs.win, 17, 0L, exit_game, game);
-    // mlx_hook(mlx_ptrs.win, 6, 1L << 6, handle_mouse_move, &game);
     mlx_loop_hook(game->mlx_ptrs->mlx_ptr, game_loop, game);
     mlx_loop(mlx_ptrs.mlx_ptr);
 }

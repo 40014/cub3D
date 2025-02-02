@@ -15,9 +15,9 @@
 # define MINI_MAP_SIZE 2
 # define MINI_MAP_SIZE_PLAYER 4
 # define SCREEN_SIZE 1600
-# define SCREEN_HEIGHT 1200
+# define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  3
+# define P_SPEED  2
 # define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 5
@@ -124,9 +124,6 @@ typedef struct s_keys
     int left;
     int right;
     int o;
-    double minimap_p_x;
-    double minimap_p_y;
-
 } t_keys;
 
 typedef struct s_mini_range
@@ -156,11 +153,10 @@ typedef struct cub
     int     check_F;
     int     check_C;
     int     check_D1;
-    int     check_D2;
     int mouse_right_pressed;
     int mouse_left_pressed;
-    t_texture       *textures[6];
-    char        *path[6];
+    t_texture       *textures[5];
+    char        *path[5];
     int     floor_color;    
     int     ceiling_color;
     t_keys  *s_keys;
