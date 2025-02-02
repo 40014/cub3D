@@ -373,7 +373,7 @@ int game_loop(t_base *game)
     int i;
 
     i = 0;
-
+    
     if (game->s_keys->right)
     {
         game->player_infos->rotation_angle += game->player_infos->rotation_speed;
