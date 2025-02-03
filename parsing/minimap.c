@@ -126,7 +126,6 @@ void fix_start_end_y(t_mini_range *mini_map_range, t_base *game)
     }
     else if (mini_map_range->end_y > game->map_height)
     {
-        
         while (mini_map_range->end_y > game->map_height)
         {
             mini_map_range->end_y--;

@@ -17,10 +17,10 @@
 # define SCREEN_SIZE 1600
 # define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  2
-# define R_SPEED  1
+# define P_SPEED  4
+# define R_SPEED  2
 # define TILE_SIZE 32
-# define CELLS_RANGE 5
+# define CELLS_RANGE 6
 # define COLOME_SIZE 1
 # define DIS_WALL 10
 # define W_KEY        119
@@ -167,6 +167,11 @@ typedef struct cub
 } t_base;
 
 
+//loading the game
+void initialize_game(t_base *game);
+
+
+
 
 // momazouz part
 size_t  ft_strlen2(const char *s);
@@ -210,18 +215,28 @@ void weapon_animation(t_base *game);
 
 
 
+// rendering
+
+double calculate_wall_x(t_player_info *ray);
+int get_texture_index(t_player_info *player_infos, int n);
+int get_texture_x(t_base *game, double wall_x, int n);
+double get_wall_height(t_player_info *player_infos, double distance_projection);
+int out_map(t_player_info *player_infos, int x, int y);
+
 
 //hdrahm part
-void cast_rays(t_base *game);
+void apply_values(t_player_info *player_infos, double jsteps, double isteps, char c);
+void rendering_3d(t_base *game);
+void get_the_real_hit_point(player_infos);
 void which_element(t_player_info *player_infos);
-void find_inters_up_right_h(t_player_info *player_infos);
-void find_inters_up_right_v(t_player_info *player_infos);
-void find_inters_up_left_h(t_player_info *player_infos);
-void find_inters_up_left_v(t_player_info *player_infos);
-void find_inters_down_right_h(t_player_info *player_infos);
-void find_inters_down_right_v(t_player_info *player_infos);
-void find_inters_down_left_h(t_player_info *player_infos);
-void find_inters_down_left_v(t_player_info *player_infos);
+void find_inters_up_right_h(t_player_info *player_infos, int y, int x);
+void find_inters_up_right_v(t_player_info *player_infos, int y, int x);
+void find_inters_up_left_h(t_player_info *player_infos, int y, int x);
+void find_inters_up_left_v(t_player_info *player_infos, int y, int x);
+void find_inters_down_right_h(t_player_info *player_infos, int y, int x);
+void find_inters_down_right_v(t_player_info *player_infos, int y, int x);
+void find_inters_down_left_h(t_player_info *player_infos, int y, int x);
+void find_inters_down_left_v(t_player_info *player_infos, int y, int x);
 void find_inters_right(t_player_info *player_infos);
 void find_inters_left(t_player_info *player_infos);
 void find_inters_up(t_player_info *player_infos);
@@ -239,8 +254,8 @@ void player_new_pos(t_player_info *player_infos);
 int check_the_edge2(t_player_info *player_infos, int j, int i);
 double normalize_angle(double angle);
 int check_the_edge1(t_player_info *player_infos, int j, int i);
-int find_wall_hit_h_v(t_player_info *player_infos);
-double calculate_length(t_player_info *player_infos, double x, double y);
+void casting_rays(t_player_info *player_infos);
+void calculate_length(t_player_info *player_infos, double x, double y);
 void init_rotation_angle(char d, t_player_info *player_infos);
 
 

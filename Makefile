@@ -4,19 +4,20 @@ CFLAGS = -Wall -Wextra -Werror -w #-fsanitize=address -g3
 
 FLAGS =  -lmlx -lXext -lX11 -lm -lz 
 
-RAY_CASTING =	ray_casting/find_inters_up_left.c ray_casting/find_inters_down_right.c \
+RAY_CASTING	=	ray_casting/find_inters_up_left.c ray_casting/find_inters_down_right.c \
 				ray_casting/find_inters_down_left.c ray_casting/find_inters_straight.c  \
-				main.c ray_casting/ray_hitting_wall.c ray_casting/find_inters_up_right.c \
-				movement/moving_player.c  sprit_animation.c 
+				main.c ray_casting/casting_rays.c ray_casting/find_inters_up_right.c \
+				movement/moving_player.c  sprit_animation.c ray_casting/ray_casting_utils.c
 			
-			
-PARSING =	parsing/check_texture_rgb.c parsing/ft_split.c parsing/utils.c                   \
-			get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
-			parsing/intialize_game.c parsing/parsing.c parsing/parsing2.c  parsing/utils_lib.c \
-			parsing/minimap.c parsing/utils_parsing.c parsing/validate_map.c parsing/drawing.c  \
-			parsing/free_game.c movement/animation_player.c \
+RENDERING	=	rendering_3d/rendering_3d.c rendering_3d/rendring_utils.c	\
 
-SOURCES = $(PARSING) $(RAY_CASTING)	
+PARSING		=	loading_game.c parsing/check_texture_rgb.c parsing/ft_split.c parsing/utils.c    \
+				get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
+				parsing/intialize_game.c parsing/parsing.c parsing/parsing2.c  parsing/utils_lib.c \
+				parsing/minimap.c parsing/utils_parsing.c parsing/validate_map.c parsing/drawing.c  \
+				parsing/free_game.c movement/animation_player.c \
+
+SOURCES = $(PARSING) $(RAY_CASTING)	$(RENDERING)
 
 
 #FLAGS = ./minilibx/libmlx.a -framework OpenGL -framework AppKit
