@@ -15,7 +15,8 @@ PARSING		=	loading_game.c parsing/check_texture_rgb.c parsing/ft_split.c parsing
 				get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
 				parsing/intialize_game.c parsing/parsing.c parsing/parsing2.c  parsing/utils_lib.c \
 				parsing/minimap.c parsing/utils_parsing.c parsing/validate_map.c parsing/drawing.c  \
-				parsing/free_game.c movement/animation_player.c \
+				parsing/free_game.c movement/animation_player.c parsing/handle_keys_mouse.c          \
+				parsing/message_errors.c parsing/color_utils.c \
 
 SOURCES = $(PARSING) $(RAY_CASTING)	$(RENDERING)
 

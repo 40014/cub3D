@@ -17,8 +17,8 @@
 # define SCREEN_SIZE 1600
 # define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  4
-# define R_SPEED  2
+# define P_SPEED  3
+# define R_SPEED  1
 # define TILE_SIZE 32
 # define CELLS_RANGE 6
 # define COLOME_SIZE 1
@@ -179,38 +179,37 @@ void    parsing(t_base *game, char *file_name);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(const char *s, char c);
 void	free_split(char **str);
-// void    ft_parse_texture(t_base *game, char **tokens);
-void ft_parse_texture(t_base *game, char *tokens);
-int parse_map(t_base *game, int fd);
+void    ft_parse_texture(t_base *game, char *tokens);
+int     parse_map(t_base *game, int fd);
 void    ft_printf_err(char *str);
 char	*ft_strdup(const char *s1);
-int parse_color(t_base *game, char *line);
+int     parse_color(t_base *game, char *line);
 char	*ft_strtrim(char const *s1, char const *set);
-int ft_isdigit_str(char *str);
-void draw_square(t_base *game, int x, int y, int color);
+int     ft_isdigit_str(char *str);
 
-void ft_init_struct_game(t_base *game);
-int key_press(int keycode, t_base *game);
-int key_release(int keycode, t_base *game);
-void initialize_keys(t_base *game);
-void my_mlx_pixel_put(t_base *game, int x, int y, int color);
-void draw_square(t_base *game, int x, int y, int color);
-void draw_map(t_base *game);
-void draw_minimap(t_base *game);
+void    ft_init_struct_game(t_base *game);
+int     key_press(int keycode, t_base *game);
+int     key_release(int keycode, t_base *game);
+void    initialize_keys(t_base *game);
+void    my_mlx_pixel_put(t_base *game, int x, int y, int color);
+void    draw_minimap(t_base *game);
 void	free_texture(char **textur);
 void	free_path(t_base *game);
-void cleanup(t_base *game, char *line);
-void error_exit(t_base *game, char *line);
-void error_color(t_base *game, char **rgb, char *str);
-void validate_map(t_base *game);
-void pad_map(t_base *game);
+void    cleanup(t_base *game, char *line);
+void    error_exit(t_base *game, char *line);
+void    error_color(t_base *game, char **rgb, char *str);
+void    validate_map(t_base *game);
+void    pad_map(t_base *game);
 void	initialize_map(t_base *game, char *line);
-void init_weapon_sprite(t_base *game);
-void draw_weapon_sprite(t_base *game);
-int mouse_press(int button, int x, int y, t_base *game);
-int mouse_release(int button, int x, int y, t_base *game);
+void    init_weapon_sprite(t_base *game);
+void    draw_weapon_sprite(t_base *game);
+int     mouse_press(int button, int x, int y, t_base *game);
+int     mouse_release(int button, int x, int y, t_base *game);
 void    exit_game(t_base *game);
-void weapon_animation(t_base *game);
+void    weapon_animation(t_base *game);
+void	error_map_close(t_base *game);
+void	error_of_door(t_base *game);
+int     parse_color_game(t_base *game, char *line);
 
 
 

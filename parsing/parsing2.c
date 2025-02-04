@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:15:57 by medo              #+#    #+#             */
-/*   Updated: 2025/01/06 18:31:30 by medo             ###   ########.fr       */
+/*   Updated: 2025/02/03 22:01:43 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,25 @@ void	add_map_line(t_base *game, char *line)
 		game->map_width = ft_strlen2(line);
 }
 
-void	parse_color_line(t_base *game, char *line)
+int	handle_textures_and_colors(t_base *game, char *line)
 {
-	if (ft_strncmp(line, "C ", 2) == 0)
-		game->ceiling_color = parse_color(game, ft_strtrim(line + 2, " "));
-	else if (ft_strncmp(line, "F ", 2) == 0)
-		game->floor_color = parse_color(game, ft_strtrim(line + 2, " "));
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0
+		|| ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0
+		|| ft_strncmp(line, "D1 ", 3) == 0)
+	{
+		ft_parse_texture(game, line);
+		return (1);
+	}
+	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0)
+		&& game->check_C != 1 || game->check_F != 1)
+	{
+		if (!parse_color_game(game, line))
+		{
+			return (0);
+		}
+		return (1);
+	}
+	return (0);
 }
 
 int	check_line(t_base *game, char *line)
@@ -71,30 +84,15 @@ int	check_line(t_base *game, char *line)
 	{
 		if (line[0] == '\n' && line[1] == '\0')
 			return (0);
-		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "WE ", 3) == 0
-			|| ft_strncmp(line, "SO ", 3) == 0 || ft_strncmp(line, "EA ",
-				3) == 0 || ft_strncmp(line, "D1 ", 3) == 0 )
-			ft_parse_texture(game, line);
-		else if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ",
-					2) == 0) && game->check_C != 1 || game->check_F != 1)
+		if (!handle_textures_and_colors(game, line))
 		{
-			if (ft_strncmp(line, "F ", 2) == 0 && game->check_F != 1)
-			{
-				parse_color_line(game, line);
-				game->check_F = 1;
-			}
-			else if (ft_strncmp(line, "C ", 2) == 0 && game->check_C != 1)
-			{
-				parse_color_line(game, line);
-				game->check_C = 1;
-			}
-		}
-		else
 			error_exit(game, line);
+		}
 		config_lines++;
 	}
-	else if (game->check_NO != 1 || game->check_SO != 1 || game->check_WE != 1 || game->check_EA != 1
-			 || game->check_D1 != 1 || game->check_C != 1 || game->check_F != 1)
+	else if (game->check_NO != 1 || game->check_SO != 1 || game->check_WE != 1
+		|| game->check_EA != 1 || game->check_D1 != 1 || game->check_C != 1
+		|| game->check_F != 1)
 	{
 		error_exit(game, line);
 	}
@@ -113,7 +111,6 @@ int	parse_map(t_base *game, int fd)
 		check_line(game, game->readmap);
 		free(game->readmap);
 	}
-	
 	if (!game->map)
 	{
 		ft_printf_err("Error\nNo map found\n");

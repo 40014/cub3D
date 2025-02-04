@@ -1,6 +1,5 @@
 # include "../cub.h"
 
-
 void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n)
 {
     double y;

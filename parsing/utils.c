@@ -3,30 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:07:58 by medo              #+#    #+#             */
-/*   Updated: 2025/01/07 14:30:09 by medo             ###   ########.fr       */
+/*   Updated: 2025/02/03 16:30:59 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	free_split(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str != NULL && str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
 void	free_path(t_base *game)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < 5)
@@ -36,6 +24,7 @@ void	free_path(t_base *game)
 		i++;
 	}
 }
+
 void	free_texture(char **textur)
 {
 	int	i;

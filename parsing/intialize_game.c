@@ -3,22 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   intialize_game.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:51 by medo              #+#    #+#             */
-/*   Updated: 2025/01/06 16:53:11 by medo             ###   ########.fr       */
+/*   Updated: 2025/02/03 16:36:27 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void ft_init_struct_game(t_base *game)
+void	init_path_and_textures(t_base *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
+	while (j < 5)
+	{
+		game->path[j] = NULL;
+		j++;
+	}
+	while (i < 5)
+	{
+		game->textures[i] = malloc(sizeof(t_texture));
+		if (!game->textures[i])
+		{
+			ft_printf_err("Error\n");
+			ft_printf_err("Failed to allocate memory for texture struct\n");
+			exit(1);
+		}
+		game->textures[i]->img_ptr = NULL;
+		game->textures[i]->data = NULL;
+		i++;
+	}
+}
+
+void	ft_init_struct_game(t_base *game)
+{
 	game->fd = -1;
 	game->map = NULL;
 	game->readmap = NULL;
@@ -36,26 +58,10 @@ void ft_init_struct_game(t_base *game)
 	game->check_F = 0;
 	game->check_C = 0;
 	game->check_D1 = 0;
-	while (j < 5)
-	{
-		game->path[j] = NULL;
-		j++;
-	}
-	while (i < 5)
-	{
-		game->textures[i] = malloc(sizeof(t_texture));  
-		if (!game->textures[i])
-		{
-			ft_printf_err("Error\nFailed to allocate memory for texture struct\n");
-			exit(1);
-		}
-		game->textures[i]->img_ptr = NULL;
-		game->textures[i]->data = NULL;
-		i++;
-	}
+	init_path_and_textures(game);
 }
 
-void initialize_map(t_base *game, char *line)
+void	initialize_map(t_base *game, char *line)
 {
 	game->map = malloc(sizeof(char *) * 2);
 	game->map[0] = ft_strdup(line);
@@ -64,80 +70,7 @@ void initialize_map(t_base *game, char *line)
 	game->map_width = ft_strlen2(line);
 }
 
-int key_press(int keycode, t_base *game)
-{
-	if (keycode == ESC)
-		exit_game(game);
-	if (keycode == W_KEY)
-		game->s_keys->w = 1;
-	else if (keycode == A_KEY)
-		game->s_keys->a = 1;
-	else if (keycode == S_KEY)
-		game->s_keys->s = 1;
-	else if (keycode == D_KEY)
-		game->s_keys->d = 1;
-	else if (keycode == LEFT_ARROW)
-		game->s_keys->left = 1;
-	else if (keycode == RIGHT_ARROW)
-		game->s_keys->right = 1;
-	else if (keycode == O_KEY)
-		game->s_keys->o = 1;
-	else if (keycode == UP)
-	{
-		if (!game->weapon_sprite->is_animating)
-        {
-            game->weapon_sprite->is_animating = 1;
-            game->weapon_sprite->current_frame = 1;
-            game->weapon_sprite->frame_timer = 0;
-        }
-	}
-	return (0);
-}
-
-int key_release(int keycode, t_base *game)
-{
-	if (keycode == W_KEY)
-		game->s_keys->w = 0;
-	else if (keycode == A_KEY)
-		game->s_keys->a = 0;
-	else if (keycode == S_KEY)
-		game->s_keys->s = 0;
-	else if (keycode == D_KEY)
-		game->s_keys->d = 0;
-	else if (keycode == LEFT_ARROW)
-		game->s_keys->left = 0;
-	else if (keycode == RIGHT_ARROW)
-		game->s_keys->right = 0;
-	else if (keycode == O_KEY)
-		game->s_keys->o = 0;
-	return (0);
-}
-
-int mouse_press(int button, int x, int y, t_base *game)
-{
-	(void)x;
-	(void)y;
-
-	if (button == MOUSE_LEFT)
-		game->mouse_left_pressed = 1;
-	else if (button == MOUSE_RIGHT)
-		game->mouse_right_pressed = 1;
-	return (0);
-}
-
-int mouse_release(int button, int x, int y, t_base *game)
-{
-	(void)x;
-	(void)y;
-
-	if (button == MOUSE_LEFT)
-		game->mouse_left_pressed = 0;
-	else if (button == MOUSE_RIGHT)
-		game->mouse_right_pressed = 0;
-	return (0);
-}
-
-void initialize_keys(t_base *game)
+void	initialize_keys(t_base *game)
 {
 	game->s_keys = malloc(sizeof(t_keys));
 	if (!game->s_keys)

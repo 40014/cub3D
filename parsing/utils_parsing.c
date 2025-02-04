@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: medo <medo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:35:31 by medo              #+#    #+#             */
-/*   Updated: 2025/01/06 13:43:28 by medo             ###   ########.fr       */
+/*   Updated: 2025/02/03 16:15:01 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+void	free_split(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str != NULL && str[i] != NULL)
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
 
 void	cleanup(t_base *game, char *line)
 {

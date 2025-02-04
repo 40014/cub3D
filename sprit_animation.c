@@ -65,6 +65,8 @@ void load_sprite_frames(t_sprite *sprite, char **paths, int frame_count, void *m
         }
         i++;
     }
+    
+
 }
 
 void init_weapon_sprite(t_base *game)
@@ -77,11 +79,14 @@ void init_weapon_sprite(t_base *game)
         "texture/sprit/sprite_frame4.xpm",
         "texture/sprit/sprite_frame5.xpm",
         "texture/sprit/sprite_frame6.xpm",
+        "texture/sprit/sprite_frame7.xpm",
+        "texture/sprit/sprite_frame8.xpm",
+        "texture/sprit/sprite_frame9.xpm",
+        "texture/sprit/sprite_frame10.xpm",
         "texture/sprit/sprite_frame11.xpm"
     };
-
     weapon_sprite = malloc(sizeof(t_sprite));
-    load_sprite_frames(weapon_sprite, weapon_sprite_paths, 7, game->mlx_ptrs->mlx_ptr);
+    load_sprite_frames(weapon_sprite, weapon_sprite_paths, 11, game->mlx_ptrs->mlx_ptr);
     weapon_sprite->x = SCREEN_SIZE / 2;
     weapon_sprite->y = SCREEN_HEIGHT - weapon_sprite->height;
     weapon_sprite->current_frame = 0;
