@@ -1,5 +1,4 @@
-#include "../cub.h"
-
+#include "../cub3D_bonus.h"
 void get_angle_from_side(t_player_info *player_infos, int d)
 {
     if (d == 1 || d == 2)

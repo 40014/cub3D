@@ -1,4 +1,4 @@
-# include "../cub.h"
+#include "../cub3D_bonus.h"
 
 
 double calculate_wall_x(t_player_info *ray)

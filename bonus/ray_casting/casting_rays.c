@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "../cub3D_bonus.h"
 
 void check_straight_ray(t_player_info *player_infos, double angle_of_ray)
 {

@@ -1,4 +1,4 @@
-# include "../cub.h"
+#include "../cub3D_bonus.h"
 
 
 int check_the_edge2(t_player_info *player_infos, int j, int i)

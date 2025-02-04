@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "../cub3D_bonus.h"
 
 int check_edge(t_player_info *player_infos, int y, int x)
 {

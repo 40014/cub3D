@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "../cub3D_bonus.h"
 
 void init_rotation_angle(char d, t_player_info *player_infos)
 {

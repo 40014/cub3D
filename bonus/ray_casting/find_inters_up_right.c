@@ -1,4 +1,4 @@
-# include "../cub.h"
+#include "../cub3D_bonus.h"
 
 
 void find_inters_up_right_h(t_player_info *player_infos, int y, int x)

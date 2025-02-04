@@ -1,4 +1,4 @@
-#include "../cub.h"
+#include "../cub3D_bonus.h"
 
 void slide_on_the_wall(t_player_info *player_infos)
 {
