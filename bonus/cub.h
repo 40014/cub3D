@@ -21,7 +21,7 @@
 # define TILE_SIZE 32
 # define CELLS_RANGE 6
 # define COLOME_SIZE 1
-# define DIS_WALL 10
+# define DIS_WALL 2
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
@@ -216,7 +216,7 @@ void    weapon_animation(t_base *game);
 void	error_map_close(t_base *game);
 void	error_of_door(t_base *game);
 int     parse_color_game(t_base *game, char *line);
-void draw_weapon_sprite(t_base *game, t_sprite *sprite);
+void    draw_weapon_sprite(t_base *game, t_sprite *sprite);
 
 
 
@@ -230,6 +230,15 @@ int out_map(t_player_info *player_infos, int x, int y);
 
 
 //hdrahm part
+void update_angle(t_player_info *player_infos, int sign, double angle);
+void update_new_position(t_player_info *player_infos, int sign, double speed, double angle);
+double check_around_pos(t_player_info *player_infos, double *len_to_wall);
+void update_position(t_player_info *player_infos, int sign, double speed, double angle);
+void get_angle_from_side(t_player_info *player_infos, int d);
+void close_doors(t_player_info *player_infos);
+int check_if_door(t_player_info *player_infos);
+int angle_direction(t_player_info *player_infos);
+int ray_angle_direction(t_player_info *player_infos);
 void apply_values(t_player_info *player_infos, double jsteps, double isteps, char c);
 void rendering_3d(t_base *game);
 void get_the_real_hit_point(player_infos);
@@ -262,6 +271,7 @@ int check_the_edge1(t_player_info *player_infos, int j, int i);
 void casting_rays(t_player_info *player_infos);
 void calculate_length(t_player_info *player_infos, double x, double y);
 void init_rotation_angle(char d, t_player_info *player_infos);
+
 
 
 # endif

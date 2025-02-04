@@ -1,6 +1,5 @@
 #include "../cub.h"
 
-
 void slide_on_the_wall(t_player_info *player_infos)
 {
     int x;
@@ -17,455 +16,140 @@ void slide_on_the_wall(t_player_info *player_infos)
         player_infos->j = player_infos->new_j;
 }
 
-int check_edge(t_player_info *player_infos)
-{
-    int x;
-    int y;
-
-    if (player_infos->real_angle > (M_PI / 2) * 3 || (player_infos->real_angle > M_PI / 2 && player_infos->real_angle < M_PI))
-    {
-        y = (player_infos->wall_hit->nj - 10) / CUB_SIZE;
-        x = (player_infos->wall_hit->ni - 10) / CUB_SIZE;
-        if (player_infos->map[y][x] != '1')
-            return (1);
-        y = (player_infos->wall_hit->nj + 10) / CUB_SIZE;
-        x = (player_infos->wall_hit->ni + 10) / CUB_SIZE;
-        if (player_infos->map[y][x] != '1')
-            return (1);
-    }
-    else
-    {
-        y = (player_infos->wall_hit->nj - 10) / CUB_SIZE;
-        x = (player_infos->wall_hit->ni + 10) / CUB_SIZE;
-        if (player_infos->map[y][x] != '1')
-            return (1);
-        y = (player_infos->wall_hit->nj + 10) / CUB_SIZE;
-        x = (player_infos->wall_hit->ni - 10) / CUB_SIZE;
-        if (player_infos->map[y][x] != '1')
-            return (1);
-        player_infos->wall_hit->in_edge = 1;
-    }
-    return (0);
-}
-
-double get_the_lenght(t_player_info *player_infos)
-{
-
-    casting_rays(player_infos);
-    if (player_infos->real_angle == 0 || player_infos->real_angle == M_PI / 2 || player_infos->real_angle == (M_PI / 2) * 3 || player_infos->real_angle == M_PI)
-        return (player_infos->wall_hit->lenght);
-    if (player_infos->wall_hit->hit_direction == 0)
-    {
-        if (player_infos->ray_rotation_angle > 0 && player_infos->ray_rotation_angle < M_PI)
-        {
-            player_infos->ray_rotation_angle = M_PI / 2;
-            casting_rays(player_infos);
-        }
-        else
-        {
-            player_infos->ray_rotation_angle = (M_PI / 2) * 3;
-            casting_rays(player_infos);
-        }
-    }
-    else
-    {
-        if (player_infos->ray_rotation_angle > M_PI / 2 && player_infos->ray_rotation_angle < 3 * (M_PI / 2))
-        {
-            player_infos->ray_rotation_angle = M_PI;
-            casting_rays(player_infos);
-        }
-        else
-        {
-            player_infos->ray_rotation_angle = 0;
-            casting_rays(player_infos);
-        }
-    }
-    return (player_infos->wall_hit->lenght);
-}
-
-double get_the_lenght2(t_player_info *player_infos)
-{
-    casting_rays(player_infos);
-    if (player_infos->real_angle == 0 || player_infos->real_angle == M_PI / 2 
-        || player_infos->real_angle == (M_PI / 2) * 3 || player_infos->real_angle == M_PI 
-        || check_edge(player_infos) == 1)
-        return (player_infos->wall_hit->lenght);
-    if (player_infos->wall_hit->hit_direction == 0)
-    {
-
-        if (player_infos->ray_rotation_angle > 0 && player_infos->ray_rotation_angle < M_PI)
-        {
-            if (player_infos->ray_rotation_angle > M_PI / 2)
-                player_infos->ray_rotation_angle = M_PI;
-            else
-                player_infos->ray_rotation_angle = 0;
-            casting_rays(player_infos);
-        }
-        else
-        {
-
-            if (player_infos->ray_rotation_angle > (M_PI / 2) * 3)
-                player_infos->ray_rotation_angle = 0;
-            else
-                player_infos->ray_rotation_angle = M_PI;
-            casting_rays(player_infos);
-        }
-    }
-    else
-    {
-        if (player_infos->ray_rotation_angle > M_PI / 2 && player_infos->ray_rotation_angle < 3 * (M_PI / 2))
-        {
-            if (player_infos->ray_rotation_angle > M_PI)
-                player_infos->ray_rotation_angle = (M_PI / 2) * 3;
-            else
-                player_infos->ray_rotation_angle = M_PI / 2;
-            casting_rays(player_infos);
-        }
-        else
-        {
-            if (player_infos->ray_rotation_angle > (M_PI / 2) * 3)
-                player_infos->ray_rotation_angle = (M_PI / 2) * 3;
-            else
-                player_infos->ray_rotation_angle = M_PI / 2;
-            casting_rays(player_infos);
-        }
-    }
-    return (player_infos->wall_hit->lenght);
-}
-
-void close_doors(t_player_info *player_infos, double lenght)
-{
-    int y;
-    int x;
-
-    y = (int)player_infos->j / CUB_SIZE;
-    x = (int)player_infos->i / CUB_SIZE;
-
-    if (y + 2 < player_infos->map_height && player_infos->map2[y + 2][x] == 'D')
-        player_infos->map[y + 2][x] = '1';
-    else if (y - 2 >= 0 && player_infos->map2[y - 2][x] == 'D')
-        player_infos->map[y - 2][x] = '1';
-    else if (x + 2 < player_infos->map_width && player_infos->map2[y][x + 2] == 'D')
-        player_infos->map[y][x + 2] = '1';
-    else if (x - 2 >= 0 && player_infos->map2[y][x - 2] == 'D')
-        player_infos->map[y][x - 2] = '1';
-    else if (player_infos->map2[y + 1][x - 1] == 'D')
-        player_infos->map[y + 1][x - 1] = '1';
-    else if (player_infos->map2[y + 1][x + 1] == 'D')
-        player_infos->map[y + 1][x + 1] = '1';
-    else if (player_infos->map2[y - 1][x + 1] == 'D')
-        player_infos->map[y - 1][x + 1] = '1';
-    else if (player_infos->map2[y - 1][x - 1] == 'D')
-        player_infos->map[y - 1][x - 1] = '1';
-}
 
 void player_new_pos_up(t_player_info *player_infos)
 {
     double move_speed;
     double len_to_wall;
-    double len_to_wall2;
 
     move_speed = player_infos->move_speed;
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall = get_the_lenght(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall2 = get_the_lenght2(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    casting_rays(player_infos);
-    close_doors(player_infos, len_to_wall);
-    if (len_to_wall2 <= DIS_WALL && player_infos->wall_hit->lenght <= (DIS_WALL) * 2)
+    player_infos->real_angle = normalize_angle(player_infos->rotation_angle);
+    if (check_around_pos(player_infos, &len_to_wall) == -1)
         return;
+    update_new_position(player_infos, 1, (DIS_WALL) - 1, 0);
     if (len_to_wall <= DIS_WALL)
     {
-        player_infos->new_i = player_infos->i + cos(player_infos->rotation_angle) * move_speed;
-        player_infos->new_j = player_infos->j + sin(player_infos->rotation_angle) * move_speed;
         slide_on_the_wall(player_infos);
         return;
     }
     if (len_to_wall - DIS_WALL < player_infos->move_speed)
     {
-
-        player_infos->i = player_infos->i + cos(player_infos->rotation_angle) * (len_to_wall - DIS_WALL);
-        player_infos->j = player_infos->j + sin(player_infos->rotation_angle) * (len_to_wall - DIS_WALL);
+        update_position(player_infos, 1,len_to_wall - (DIS_WALL), 0);
         slide_on_the_wall(player_infos);
     }
     else if (len_to_wall >= player_infos->move_speed)
-    {
-        player_infos->j = player_infos->new_j;
-        player_infos->i = player_infos->new_i;
-    }
+        update_position(player_infos, 1, move_speed, 0);
 }
 
 void player_new_pos(t_player_info *player_infos)
 {
     double move_speed;
     double len_to_wall;
-    double len_to_wall2;
+    double r_ang;
 
     move_speed = player_infos->move_speed;
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall = get_the_lenght(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall2 = get_the_lenght2(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    casting_rays(player_infos);
-    close_doors(player_infos, len_to_wall);
-    if (len_to_wall2 <= DIS_WALL && player_infos->wall_hit->lenght <= DIS_WALL * 1.5)
+    r_ang = fmod(player_infos->rotation_angle * (180 / M_PI) + 180, 360) * (M_PI / 180);
+    player_infos->real_angle = normalize_angle(r_ang);
+    if (check_around_pos(player_infos, &len_to_wall) == -1)
         return;
+    update_new_position(player_infos, 0, (DIS_WALL) - 1, 0);
     if (len_to_wall <= DIS_WALL)
     {
-
-        player_infos->new_i = player_infos->i - cos(player_infos->rotation_angle) * move_speed;
-        player_infos->new_j = player_infos->j - sin(player_infos->rotation_angle) * move_speed;
         slide_on_the_wall(player_infos);
         return;
     }
     if (len_to_wall - DIS_WALL < player_infos->move_speed)
     {
-        player_infos->i = player_infos->i - cos(player_infos->rotation_angle) * (len_to_wall - DIS_WALL);
-        player_infos->j = player_infos->j - sin(player_infos->rotation_angle) * (len_to_wall - DIS_WALL);
+        update_position(player_infos, 0, len_to_wall - DIS_WALL, 0);
         slide_on_the_wall(player_infos);
     }
     else if (len_to_wall >= player_infos->move_speed)
-    {
-        player_infos->j = player_infos->new_j;
-        player_infos->i = player_infos->new_i;
-    }
+        update_position(player_infos, 0, move_speed, 0);
 }
 
 void player_new_pos_right(t_player_info *player_infos)
 {
     double move_speed;
     double len_to_wall;
-    double len_to_wall2;
+    double r_ang;
 
     move_speed = player_infos->move_speed;
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall = get_the_lenght(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall2 = get_the_lenght2(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    casting_rays(player_infos);
-    close_doors(player_infos, len_to_wall);
-    if (len_to_wall2 <= DIS_WALL && player_infos->wall_hit->lenght <= DIS_WALL * 1.5)
+    r_ang = fmod(player_infos->rotation_angle * (180 / M_PI) + 90, 360) * (M_PI / 180);
+    player_infos->real_angle = normalize_angle(r_ang);
+    if (check_around_pos(player_infos, &len_to_wall) == -1)
         return;
+    update_new_position(player_infos, 1, (DIS_WALL) - 1, M_PI / 2);
     if (len_to_wall <= DIS_WALL)
     {
-
-        player_infos->new_i = player_infos->i + cos(player_infos->rotation_angle + M_PI / 2) * move_speed;
-        player_infos->new_j = player_infos->j + sin(player_infos->rotation_angle + M_PI / 2) * move_speed;
         slide_on_the_wall(player_infos);
         return;
     }
     if (len_to_wall - DIS_WALL < player_infos->move_speed)
     {
-        player_infos->i = player_infos->i + cos(player_infos->rotation_angle + M_PI / 2) * (len_to_wall - DIS_WALL);
-        player_infos->j = player_infos->j + sin(player_infos->rotation_angle + M_PI / 2) * (len_to_wall - DIS_WALL);
+        update_position(player_infos, 1,len_to_wall - DIS_WALL, M_PI / 2);
         slide_on_the_wall(player_infos);
     }
     else if (len_to_wall >= player_infos->move_speed)
-    {
-        player_infos->j = player_infos->new_j;
-        player_infos->i = player_infos->new_i;
-    }
+        update_position(player_infos, 1, move_speed, M_PI / 2);
 }
 
 void player_new_pos_left(t_player_info *player_infos)
 {
     double move_speed;
     double len_to_wall;
-    double len_to_wall2;
+    double r_ang;
 
     move_speed = player_infos->move_speed;
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall = get_the_lenght(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    len_to_wall2 = get_the_lenght2(player_infos);
-    player_infos->ray_rotation_angle = player_infos->real_angle;
-    casting_rays(player_infos);
-    close_doors(player_infos, len_to_wall);
-    if (len_to_wall2 <= DIS_WALL && player_infos->wall_hit->lenght <= DIS_WALL * 1.5)
+    r_ang = fmod(player_infos->rotation_angle * (180 / M_PI) + 270, 360) * (M_PI / 180);
+    player_infos->real_angle = normalize_angle(r_ang);
+    if (check_around_pos(player_infos, &len_to_wall) == -1)
         return;
+    update_new_position(player_infos, 1, (DIS_WALL) - 1, -(M_PI / 2));
     if (len_to_wall <= DIS_WALL)
     {
-        player_infos->new_i = player_infos->i + cos(player_infos->rotation_angle - M_PI / 2) * move_speed;
-        player_infos->new_j = player_infos->j + sin(player_infos->rotation_angle - M_PI / 2) * move_speed;
         slide_on_the_wall(player_infos);
         return;
     }
     if (len_to_wall - DIS_WALL < player_infos->move_speed)
     {
-        player_infos->i = player_infos->i + cos(player_infos->rotation_angle - M_PI / 2) * (len_to_wall - DIS_WALL);
-        player_infos->j = player_infos->j + sin(player_infos->rotation_angle - M_PI / 2) * (len_to_wall - DIS_WALL);
+        update_position(player_infos, 1,len_to_wall - DIS_WALL, -(M_PI / 2));
         slide_on_the_wall(player_infos);
     }
     else if (len_to_wall >= player_infos->move_speed)
-    {
-        player_infos->j = player_infos->new_j;
-        player_infos->i = player_infos->new_i;
-    }
+        update_position(player_infos, 1, move_speed, -(M_PI / 2));
 }
 
-int check_if_door(t_player_info *player_infos)
+void do_the_magic(t_base *game)
 {
-    int y;
-    int x;
-    int t;
-    int c;
+    rendering_3d(game);
+    draw_minimap(game);
+     draw_weapon_sprite(game, game->weapon_sprite);
+    mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
 
-    c = 0;
-    if (player_infos->wall_hit->hit_direction == 0)
-    {
-        if (player_infos->rotation_angle > 0 && player_infos->rotation_angle < M_PI)
-            t = 1;
-        else
-            t = 2;
-    }
-    else
-    {
-        if (player_infos->rotation_angle > M_PI / 2 && player_infos->rotation_angle < 3 * (M_PI / 2))
-            t = 3;
-        else
-            t = 4;
-    }
-    y = (int)player_infos->j / CUB_SIZE;
-    x = (int)player_infos->i / CUB_SIZE;
-    if (player_infos->map2[y + 1][x] == 'D' && t == 1)
-        player_infos->map[y + 1][x] = '0';
-    else if (player_infos->map2[y - 1][x] == 'D' && t == 2)
-        player_infos->map[y - 1][x] = '0';
-    else if (player_infos->map2[y][x - 1] == 'D' && t == 3)
-        player_infos->map[y][x - 1] = '0';
-    else if (player_infos->map2[y][x + 1] == 'D' && t == 4)
-        player_infos->map[y][x + 1] = '0';
-    else
-        c = 1;
-    return (c);
 }
 
 int game_loop(t_base *game)
 {
-    int i;
-
-    i = 0;
-
     if (game->s_keys->right)
-    {
-        game->player_infos->rotation_angle += game->player_infos->rotation_speed;
-        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
-        i = 1;
-    }
+        update_angle(game->player_infos, 1, game->player_infos->rotation_speed);
     if (game->s_keys->left)
-    {
-        game->player_infos->rotation_angle -= game->player_infos->rotation_speed;
-        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
-        i = 1;
-    }
+        update_angle(game->player_infos, 0, game->player_infos->rotation_speed);
     if (game->s_keys->w)
-    {
-        game->player_infos->new_i = game->player_infos->i + cos(game->player_infos->rotation_angle) * game->player_infos->move_speed;
-        game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle) * game->player_infos->move_speed;
-        game->player_infos->real_angle = normalize_angle(game->player_infos->rotation_angle);
         player_new_pos_up(game->player_infos);
-        i = 1;
-    }
     if (game->s_keys->s)
-    {
-        game->player_infos->new_i = game->player_infos->i - cos(game->player_infos->rotation_angle) * game->player_infos->move_speed;
-        game->player_infos->new_j = game->player_infos->j - sin(game->player_infos->rotation_angle) * game->player_infos->move_speed;
-        game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 180, 360) * (M_PI / 180);
-        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos(game->player_infos);
-        i = 1;
-    }
     if (game->s_keys->d)
-    {
-        game->player_infos->new_i = game->player_infos->i + cos(game->player_infos->rotation_angle + M_PI / 2) * game->player_infos->move_speed;
-        game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle + M_PI / 2) * game->player_infos->move_speed;
-        game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 90, 360) * (M_PI / 180);
-        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos_right(game->player_infos);
-        i = 1;
-    }
     if (game->s_keys->a)
-    {
-        game->player_infos->new_i = game->player_infos->i + cos(game->player_infos->rotation_angle - M_PI / 2) * game->player_infos->move_speed;
-        game->player_infos->new_j = game->player_infos->j + sin(game->player_infos->rotation_angle - M_PI / 2) * game->player_infos->move_speed;
-        game->player_infos->real_angle = fmod(game->player_infos->rotation_angle * (180 / M_PI) + 270, 360) * (M_PI / 180);
-        game->player_infos->real_angle = normalize_angle(game->player_infos->real_angle);
         player_new_pos_left(game->player_infos);
-        i = 1;
-    }
-    if (game->s_keys->o)
-    {
-        if (check_if_door(game->player_infos) == 0)
-        {
-            rendering_3d(game);
-            draw_minimap(game);
-            draw_weapon_sprite(game, game->weapon_sprite);
-            mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
-        }
-    }
+    if (game->s_keys->o )
+        check_if_door(game->player_infos);
     if (game->mouse_left_pressed)
-    {
-        game->player_infos->rotation_angle -= MOUSE_SPED;
-        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
-        i = 1;
-    }
+        update_angle(game->player_infos, 0, MOUSE_SPED);
     if (game->mouse_right_pressed)
-    {
-        game->player_infos->rotation_angle += MOUSE_SPED;
-        game->player_infos->rotation_angle = normalize_angle(game->player_infos->rotation_angle);
-        i = 1;
-    }
+        update_angle(game->player_infos, 1, MOUSE_SPED);
     if (game->weapon_sprite->is_animating)
-    {
-        weapon_animation(game);
-        i = 1;
-    }
-    if (i == 1)
-    {
-        rendering_3d(game);
-        draw_minimap(game);
-        draw_weapon_sprite(game, game->weapon_sprite);
-        mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
-    }
+       weapon_animation(game);
+    do_the_magic(game);
     return 0;
-}
-
-char get_player_pos_and_dir(t_player_info *player_infos)
-{
-    int i;
-    int j;
-    char d;
-
-    j = 0;
-    while (j < player_infos->map_height)
-    {
-        i = 0;
-        while (i < player_infos->map_width)
-        {
-            d = player_infos->map[j][i];
-            if (d == 'N' || d == 'S' || d == 'E' || d == 'W')
-            {
-                player_infos->i = (i + 0.5) * CUB_SIZE;
-                player_infos->j = (j + 0.5) * CUB_SIZE;
-                return (d);
-            }
-            i++;
-        }
-        j++;
-    }
-}
-
-void init_rotation_angle(char d, t_player_info *player_infos)
-{
-    if (d == 'N')
-        player_infos->rotation_angle = 0 + M_PI / 2;
-    else if (d == 'S')
-        player_infos->rotation_angle = 0 + 3 * (M_PI / 2);
-    else if (d == 'E')
-        player_infos->rotation_angle = 0 + M_PI;
-    else if (d == 'W')
-        player_infos->rotation_angle = 0;
 }

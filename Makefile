@@ -7,7 +7,8 @@ FLAGS =  -lmlx -lXext -lX11 -lm -lz
 RAY_CASTING	=	bonus/ray_casting/find_inters_up_left.c bonus/ray_casting/find_inters_down_right.c \
 				bonus/ray_casting/find_inters_down_left.c bonus/ray_casting/find_inters_straight.c  \
 				bonus/main.c bonus/ray_casting/casting_rays.c bonus/ray_casting/find_inters_up_right.c \
-				bonus/movement/moving_player.c  bonus/sprit_animation.c bonus/ray_casting/ray_casting_utils.c
+				bonus/movement/moving_player.c bonus/movement/movement_utils.c   bonus/movement/movement_utils_2.c \
+				bonus/sprit_animation.c bonus/ray_casting/ray_casting_utils.c bonus/movement/check_around_pos.c
 			
 RENDERING	=	bonus/rendering_3d/rendering_3d.c bonus/rendering_3d/rendring_utils.c	\
 
