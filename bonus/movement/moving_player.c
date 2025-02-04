@@ -402,7 +402,7 @@ int game_loop(t_base *game)
         {
             rendering_3d(game);
             draw_minimap(game);
-            draw_weapon_sprite(game);
+            draw_weapon_sprite(game, game->weapon_sprite);
             mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
         }
     }
@@ -427,7 +427,7 @@ int game_loop(t_base *game)
     {
         rendering_3d(game);
         draw_minimap(game);
-        draw_weapon_sprite(game);
+        draw_weapon_sprite(game, game->weapon_sprite);
         mlx_put_image_to_window(game->mlx_ptrs->mlx_ptr, game->mlx_ptrs->win, game->mlx_ptrs->img, 0, 0);
     }
     return 0;

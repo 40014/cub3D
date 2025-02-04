@@ -38,7 +38,6 @@ void draw_wall_line(t_base *game, double line_length, double x, int tex_x, int n
         texture_pos += texture_step;
         y++;
     }
-
     i = end_wall;
     while (i < SCREEN_HEIGHT)
     {

@@ -4,19 +4,19 @@ CFLAGS = -Wall -Wextra -Werror -w #-fsanitize=address -g3
 
 FLAGS =  -lmlx -lXext -lX11 -lm -lz 
 
-RAY_CASTING	=	ray_casting/find_inters_up_left.c ray_casting/find_inters_down_right.c \
-				ray_casting/find_inters_down_left.c ray_casting/find_inters_straight.c  \
-				main.c ray_casting/casting_rays.c ray_casting/find_inters_up_right.c \
-				movement/moving_player.c  sprit_animation.c ray_casting/ray_casting_utils.c
+RAY_CASTING	=	bonus/ray_casting/find_inters_up_left.c bonus/ray_casting/find_inters_down_right.c \
+				bonus/ray_casting/find_inters_down_left.c bonus/ray_casting/find_inters_straight.c  \
+				bonus/main.c bonus/ray_casting/casting_rays.c bonus/ray_casting/find_inters_up_right.c \
+				bonus/movement/moving_player.c  bonus/sprit_animation.c bonus/ray_casting/ray_casting_utils.c
 			
-RENDERING	=	rendering_3d/rendering_3d.c rendering_3d/rendring_utils.c	\
+RENDERING	=	bonus/rendering_3d/rendering_3d.c bonus/rendering_3d/rendring_utils.c	\
 
-PARSING		=	loading_game.c parsing/check_texture_rgb.c parsing/ft_split.c parsing/utils.c    \
+PARSING		=	bonus/loading_game.c bonus/parsing/check_texture_rgb.c bonus/parsing/ft_split.c bonus/parsing/utils.c    \
 				get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
-				parsing/intialize_game.c parsing/parsing.c parsing/parsing2.c  parsing/utils_lib.c \
-				parsing/minimap.c parsing/utils_parsing.c parsing/validate_map.c parsing/drawing.c  \
-				parsing/free_game.c movement/animation_player.c parsing/handle_keys_mouse.c          \
-				parsing/message_errors.c parsing/color_utils.c \
+				bonus/parsing/intialize_game.c bonus/parsing/parsing.c bonus/parsing/parsing2.c  bonus/parsing/utils_lib.c \
+				bonus/parsing/minimap.c bonus/parsing/utils_parsing.c bonus/parsing/validate_map.c bonus/parsing/drawing.c  \
+				bonus/parsing/free_game.c bonus/movement/animation_player.c bonus/parsing/handle_keys_mouse.c          \
+				bonus/parsing/message_errors.c bonus/parsing/color_utils.c \
 
 SOURCES = $(PARSING) $(RAY_CASTING)	$(RENDERING)
 

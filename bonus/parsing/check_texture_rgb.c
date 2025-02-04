@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/06 13:31:46 by medo              #+#    #+#             */
-/*   Updated: 2025/02/03 22:16:29 by momazouz         ###   ########.fr       */
+/*   Created: 2025/02/04 09:39:15 by momazouz          #+#    #+#             */
+/*   Updated: 2025/02/04 09:54:28 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,20 @@ void	check_texture_file(t_base *game, char *file, char *tokens)
 	}
 }
 
+void	put_ea_d1(t_base *game, char *path, char *texture_type, int index)
+{
+	if (ft_strncmp(texture_type, "EA", 3) == 0)
+	{
+		game->check_EA = 1;
+		game->path[index] = ft_strdup(path);
+	}
+	else if (ft_strncmp(texture_type, "D1", 3) == 0)
+	{
+		game->check_D1 = 1;
+		game->path[index] = ft_strdup(path);
+	}
+}
+
 void	ft_process_texture_type(t_base *game, char *texture_type, char *path)
 {
 	int	index;
@@ -77,17 +91,9 @@ void	ft_process_texture_type(t_base *game, char *texture_type, char *path)
 		game->path[index] = ft_strdup(path);
 	}
 	else if (ft_strncmp(texture_type, "EA", 3) == 0 && game->check_EA != 1)
-	{
-		game->check_EA = 1;
-		index = 3;
-		game->path[index] = ft_strdup(path);
-	}
+		put_ea_d1(game, path, texture_type, 3);
 	else if (ft_strncmp(texture_type, "D1", 3) == 0 && game->check_D1 != 1)
-	{
-		game->check_D1 = 1;
-		index = 4;
-		game->path[index] = ft_strdup(path);
-	}
+		put_ea_d1(game, path, texture_type, 4);
 }
 
 void	ft_parse_texture(t_base *game, char *tokens)
@@ -105,5 +111,3 @@ void	ft_parse_texture(t_base *game, char *tokens)
 		free(path);
 	free_split(split);
 }
-
-

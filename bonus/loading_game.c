@@ -82,7 +82,7 @@ void initialize_game(t_base *game)
     init_rotation_angle(get_player_pos_and_dir(&player_infos), &player_infos);
     rendering_3d(game);
     draw_minimap(game);
-    draw_weapon_sprite(game);
+    draw_weapon_sprite(game, game->weapon_sprite);
     mlx_put_image_to_window(mlx_ptrs.mlx_ptr, mlx_ptrs.win, mlx_ptrs.img, 0, 0);
     mlx_hook(mlx_ptrs.win, 2, 1L << 0, key_press, game);
     mlx_hook(mlx_ptrs.win, 3, 1L << 1, key_release, game);

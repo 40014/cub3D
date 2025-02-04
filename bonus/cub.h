@@ -3,8 +3,7 @@
 
 # include <math.h>
 # include "mlx.h"
-//# include "./minilibx/mlx.h"
-# include "./get_next_line/get_next_line.h"
+# include "../get_next_line/get_next_line.h"
 # include <fcntl.h>
 # include <limits.h>
 # include <stdio.h>
@@ -39,7 +38,6 @@
 //# define M_PI 3.14159265358979323846
 
 
-
 typedef  struct mlx
 {
     void    *mlx_ptr;
@@ -51,6 +49,15 @@ typedef  struct mlx
     int     endian;  
 
 } t_mlx_ptrs;
+
+typedef struct s_image_data
+{
+	void	*current_frame_img;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	char	*frame_data;
+}			t_image_data;
 
 typedef struct s_texture
 {
@@ -202,7 +209,6 @@ void    validate_map(t_base *game);
 void    pad_map(t_base *game);
 void	initialize_map(t_base *game, char *line);
 void    init_weapon_sprite(t_base *game);
-void    draw_weapon_sprite(t_base *game);
 int     mouse_press(int button, int x, int y, t_base *game);
 int     mouse_release(int button, int x, int y, t_base *game);
 void    exit_game(t_base *game);
@@ -210,7 +216,7 @@ void    weapon_animation(t_base *game);
 void	error_map_close(t_base *game);
 void	error_of_door(t_base *game);
 int     parse_color_game(t_base *game, char *line);
-
+void draw_weapon_sprite(t_base *game, t_sprite *sprite);
 
 
 
@@ -256,9 +262,6 @@ int check_the_edge1(t_player_info *player_infos, int j, int i);
 void casting_rays(t_player_info *player_infos);
 void calculate_length(t_player_info *player_infos, double x, double y);
 void init_rotation_angle(char d, t_player_info *player_infos);
-
-
-
 
 
 # endif
