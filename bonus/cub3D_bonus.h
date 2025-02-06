@@ -6,7 +6,7 @@
 /*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:24:08 by hdrahm            #+#    #+#             */
-/*   Updated: 2025/02/06 18:04:22 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:51:39 by hdrahm           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,9 +282,9 @@ void				find_inters_down(t_player_info *player_infos);
 void				my_mlx_pixel_put2(t_player_info *player_infos, int x, int y,
 						int color);
 void				find_nearest_wal_hit_down_left(t_player_info *player_infos);
-void				find_nearest_wall_hit_up_right(t_player_info *player_infos);
+void				find_nearest_wal_hit_up_right(t_player_info *player_infos);
 void				find_nearest_wal_hit_dow_right(t_player_info *player_infos);
-void				find_nearest_wall_hit_up_left(t_player_info *player_infos);
+void				find_nearest_wal_hit_up_left(t_player_info *player_infos);
 char				get_player_pos_and_dir(t_player_info *player_infos);
 int					game_loop(t_base *game);
 void				draw_line2(t_base *game, double line_lenght, int color);

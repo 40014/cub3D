@@ -6,7 +6,7 @@
 /*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:53:32 by hdrahm            #+#    #+#             */
-/*   Updated: 2025/02/06 12:57:52 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:56:56 by hdrahm           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,18 @@ int	check_down_inters(t_player_info *player_infos)
 	{
 		find_inters_down_right_h(player_infos, 0, 0);
 		find_inters_down_right_v(player_infos, 0, 0);
-		find_nearest_wall_hit_down_right(player_infos);
+		find_nearest_wal_hit_down_right(player_infos);
+		calculate_length(player_infos, player_infos->wall_hit->ni,
+			player_infos->wall_hit->nj);
 		return (1);
 	}
 	else if (angle_of_ray > M_PI / 2 && angle_of_ray < M_PI)
 	{
 		find_inters_down_left_h(player_infos, 0, 0);
 		find_inters_down_left_v(player_infos, 0, 0);
-		find_nearest_wall_hit_down_left(player_infos);
+		find_nearest_wal_hit_down_left(player_infos);
+		calculate_length(player_infos, player_infos->wall_hit->ni,
+			player_infos->wall_hit->nj);
 		return (1);
 	}
 	return (0);
@@ -71,14 +75,18 @@ int	check_up_inters(t_player_info *player_infos)
 	{
 		find_inters_up_left_h(player_infos, 0, 0);
 		find_inters_up_left_v(player_infos, 0, 0);
-		find_nearest_wall_hit_up_left(player_infos);
+		find_nearest_wal_hit_up_left(player_infos);
+		calculate_length(player_infos, player_infos->wall_hit->ni,
+			player_infos->wall_hit->nj);
 		return (1);
 	}
 	else if (angle_of_ray > 3 * M_PI / 2 && angle_of_ray < 2 * M_PI)
 	{
 		find_inters_up_right_h(player_infos, 0, 0);
 		find_inters_up_right_v(player_infos, 0, 0);
-		find_nearest_wall_hit_up_right(player_infos);
+		find_nearest_wal_hit_up_right(player_infos);
+		calculate_length(player_infos, player_infos->wall_hit->ni,
+			player_infos->wall_hit->nj);
 		return (1);
 	}
 	return (0);

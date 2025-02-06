@@ -6,7 +6,7 @@
 /*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 12:53:36 by hdrahm            #+#    #+#             */
-/*   Updated: 2025/02/06 13:04:22 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:56:16 by hdrahm           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	find_inters_down_left_v(t_player_info *player_infos, int y, int x)
 		apply_values(player_infos, jsteps, isteps, 'v');
 }
 
-void	find_nearest_wall_hit_down_left(t_player_info *player_infos)
+void	find_nearest_wal_hit_down_left(t_player_info *player_infos)
 {
 	if (player_infos->wall_hit->hi == -1 || player_infos->wall_hit->hj == -1)
 	{
@@ -121,6 +121,4 @@ void	find_nearest_wall_hit_down_left(t_player_info *player_infos)
 		player_infos->wall_hit->ni = player_infos->wall_hit->vi;
 		player_infos->wall_hit->hit_direction = 1;
 	}
-	calculate_length(player_infos, player_infos->wall_hit->ni,
-		player_infos->wall_hit->nj);
 }
