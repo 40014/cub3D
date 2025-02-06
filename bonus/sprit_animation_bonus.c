@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprit_animation_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:21:22 by momazouz          #+#    #+#             */
-/*   Updated: 2025/02/06 16:32:05 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 20:12:23 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	load_sprite_frames(t_sprite *sprite, char **paths, int frame_count,
 void	init_weapon_sprite(t_base *game)
 {
 	t_sprite	*weapon_sprite;
-
-	static char *weapon_sprite_paths[] = {
-		"texture/sprit/sprite_frame1.xpm",
+	static char	*weapon_sprite_paths[] = {"texture/sprit/sprite_frame1.xpm",
 		"texture/sprit/sprite_frame2.xpm",
 		"texture/sprit/sprite_frame3.xpm",
 		"texture/sprit/sprite_frame4.xpm",
@@ -81,6 +79,7 @@ void	init_weapon_sprite(t_base *game)
 		"texture/sprit/sprite_frame9.xpm",
 		"texture/sprit/sprite_frame10.xpm",
 		"texture/sprit/sprite_frame11.xpm"};
+
 	weapon_sprite = malloc(sizeof(t_sprite));
 	load_sprite_frames(weapon_sprite, weapon_sprite_paths, 11,
 		game->mlx_ptrs->mlx_ptr);

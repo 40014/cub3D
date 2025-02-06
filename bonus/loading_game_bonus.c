@@ -6,7 +6,7 @@
 /*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:48:06 by momazouz          #+#    #+#             */
-/*   Updated: 2025/02/04 15:48:11 by momazouz         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:06:54 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	load_texture(t_base *game, t_texture *texture, char *path)
 	if (!texture->img_ptr)
 	{
 		ft_printf_err("Error\nFailed to load texture:\n");
+		error_texture_exit(game);
 		exit(1);
 	}
 	texture->data = mlx_get_data_addr(texture->img_ptr, &texture->bpp,
@@ -26,6 +27,7 @@ void	load_texture(t_base *game, t_texture *texture, char *path)
 	if (!texture->data)
 	{
 		ft_printf_err("Error\nFailed to get texture data for: \n");
+		error_texture_exit(game);
 		exit(1);
 	}
 }

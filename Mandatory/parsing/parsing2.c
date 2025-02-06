@@ -6,7 +6,7 @@
 /*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:15:57 by medo              #+#    #+#             */
-/*   Updated: 2025/02/04 16:15:01 by momazouz         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:29:47 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	handle_textures_and_colors(t_base *game, char *line)
 		return (1);
 	}
 	if ((ft_strncmp(line, "F ", 2) == 0) || (ft_strncmp(line, "C ", 2) == 0)
-		&& game->check_C != 1 || game->check_F != 1)
+		&& game->check_c != 1 || game->check_f != 1)
 	{
 		if (!parse_color_game(game, line))
 		{
@@ -89,8 +89,8 @@ int	check_line(t_base *game, char *line)
 		}
 		config_lines++;
 	}
-	else if (game->check_NO != 1 || game->check_SO != 1 || game->check_WE != 1
-		|| game->check_EA != 1 || game->check_C != 1 || game->check_F != 1)
+	else if (game->check_no != 1 || game->check_so != 1 || game->check_we != 1
+		|| game->check_ea != 1 || game->check_c != 1 || game->check_f != 1)
 	{
 		error_exit(game, line);
 	}

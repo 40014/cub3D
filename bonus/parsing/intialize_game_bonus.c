@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intialize_game.c                                   :+:      :+:    :+:   */
+/*   intialize_game_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 15:52:51 by medo              #+#    #+#             */
-/*   Updated: 2025/02/04 14:42:29 by momazouz         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:27:42 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	ft_init_struct_game(t_base *game)
 	game->player_y = -1;
 	game->floor_color = -1;
 	game->ceiling_color = -1;
-	game->check_NO = 0;
-	game->check_SO = 0;
-	game->check_WE = 0;
-	game->check_EA = 0;
-	game->check_F = 0;
-	game->check_C = 0;
-	game->check_D1 = 0;
+	game->check_no = 0;
+	game->check_so = 0;
+	game->check_we = 0;
+	game->check_ea = 0;
+	game->check_f = 0;
+	game->check_c = 0;
+	game->check_d1 = 0;
 	init_path_and_textures(game);
 }
 

@@ -60,6 +60,7 @@
   "files.associations": {
     "cub.h": "c",
     "cmath": "c",
-    "random": "c"
+    "random": "c",
+    "cub3d_bonus.h": "c"
   }
 }

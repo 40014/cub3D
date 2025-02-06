@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
+/*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:24:08 by hdrahm            #+#    #+#             */
-/*   Updated: 2025/02/06 18:51:39 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 20:02:20 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ typedef struct s_texture
 	int				line_length;
 	int				endian;
 }					t_texture;
+
+typedef struct s_wall_data
+{
+	double			start_wall;
+	double			end_wall;
+	double			line_length;
+	int				tex_x;
+	int				n;
+	int				color;
+}					t_wall_data;
 
 typedef struct s_sprite
 {
@@ -161,13 +171,16 @@ typedef struct cub
 	int				player_x;
 	int				player_y;
 	char			player_dir;
-	int				check_NO;
-	int				check_WE;
-	int				check_SO;
-	int				check_EA;
-	int				check_F;
-	int				check_C;
-	int				check_D1;
+	int				check_no;
+	int				check_we;
+	int				check_so;
+	int				check_ea;
+	int				check_f;
+	int				check_c;
+	int				check_d1;
+	int				tex_x;
+	double			wall_x;
+	int				n;
 	int				mouse_right_pressed;
 	int				mouse_left_pressed;
 	t_texture		*textures[5];
@@ -222,6 +235,7 @@ void				error_map_close(t_base *game);
 void				error_of_door(t_base *game);
 int					parse_color_game(t_base *game, char *line);
 void				draw_weapon_sprite(t_base *game, t_sprite *sprite);
+void				error_texture_exit(t_base *game);
 
 // rendering
 

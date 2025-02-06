@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color_utils.c                                      :+:      :+:    :+:   */
+/*   color_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: momazouz <momazouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 20:51:15 by momazouz          #+#    #+#             */
-/*   Updated: 2025/02/04 14:42:05 by momazouz         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:30:34 by momazouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,16 @@ void	parse_color_line(t_base *game, char *line)
 
 int	parse_color_game(t_base *game, char *line)
 {
-	if (ft_strncmp(line, "F ", 2) == 0 && game->check_F != 1)
+	if (ft_strncmp(line, "F ", 2) == 0 && game->check_f != 1)
 	{
 		parse_color_line(game, line);
-		game->check_F = 1;
+		game->check_f = 1;
 		return (1);
 	}
-	else if (ft_strncmp(line, "C ", 2) == 0 && game->check_C != 1)
+	else if (ft_strncmp(line, "C ", 2) == 0 && game->check_c != 1)
 	{
 		parse_color_line(game, line);
-		game->check_C = 1;
+		game->check_c = 1;
 		return (1);
 	}
 	return (0);
