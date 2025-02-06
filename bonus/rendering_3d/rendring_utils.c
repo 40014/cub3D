@@ -6,7 +6,7 @@
 /*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:12:58 by hdrahm            #+#    #+#             */
-/*   Updated: 2025/02/06 13:16:51 by hdrahm           ###   ########.fr       */
+/*   Updated: 2025/02/06 15:51:56 by hdrahm           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ double	get_wall_height(t_player_info *player_infos, double distance_projection)
 {
 	double	correct_lenght;
 	double	wall_height;
-    double  norml_a;
+	double	norml_a;
 
-    norml_a = normalize_angle(player_infos->ray_rotation_angle);
+	norml_a = normalize_angle(player_infos->ray_rotation_angle);
 	player_infos->ray_rotation_angle = norml_a;
 	casting_rays(player_infos);
 	correct_lenght = player_infos->wall_hit->lenght

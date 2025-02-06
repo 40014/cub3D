@@ -59,6 +59,7 @@
   "C_Cpp.errorSquiggles": "disabled",
   "files.associations": {
     "cub.h": "c",
-    "cmath": "c"
+    "cmath": "c",
+    "random": "c"
   }
 }

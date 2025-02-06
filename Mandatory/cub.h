@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 15:23:49 by hdrahm            #+#    #+#             */
+/*   Updated: 2025/02/06 15:26:29 by hdrahm           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # ifndef CUB_H
 # define CUB_H
 
@@ -31,19 +43,15 @@
 # define RIGHT_ARROW  65363
 # define ESC          65307
 
-//# define M_PI 3.14159265358979323846
-
-
 typedef  struct mlx
 {
     void    *mlx_ptr;
     void    *win;
-    void    *img;           // Pointer to the image
-    char    *addr;          // Address of the image data
-    int     bpp;            // Bits per pixel
-    int     line_length;    // Number of bytes in a row
-    int     endian;  
-
+    void    *img;
+    char    *addr;
+    int     bpp;
+    int     line_length;
+    int     endian;
 } t_mlx_ptrs;
 
 typedef struct s_texture

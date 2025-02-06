@@ -32,7 +32,7 @@ RENDERING_BONUS	=	bonus/rendering_3d/rendering_3d.c bonus/rendering_3d/rendring_
 PARSING_BOUNUS =	bonus/loading_game_bonus.c bonus/parsing/check_texture_rgb_bonus.c bonus/parsing/ft_split_bonus.c bonus/parsing/utils_bonus.c    \
 				get_next_line/get_next_line.c  get_next_line/get_next_line_utils.c                \
 				bonus/parsing/intialize_game_bonus.c bonus/parsing/parsing_bonus.c bonus/parsing/parsing2_bonus.c  bonus/parsing/utils_lib_bonus.c \
-				bonus/parsing/minimap_bonus.c bonus/parsing/utils_parsing_bonus.c bonus/parsing/validate_map_bonus.c bonus/parsing/drawing_bonus.c  \
+				bonus/parsing/minimap_bonus.c bonus/parsing/minimap_utils_bonus.c bonus/parsing/utils_parsing_bonus.c bonus/parsing/validate_map_bonus.c bonus/parsing/drawing_bonus.c  \
 				bonus/parsing/free_game_bonus.c bonus/movement/animation_player_bonus.c bonus/parsing/handle_keys_mouse_bonus.c          \
 				bonus/parsing/message_errors_bonus.c bonus/parsing/color_utils_bonus.c \
 

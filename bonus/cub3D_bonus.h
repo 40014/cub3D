@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdrahm <hdrahm@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 15:24:08 by hdrahm            #+#    #+#             */
+/*   Updated: 2025/02/06 18:04:22 by hdrahm           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
@@ -35,18 +47,15 @@
 # define MOUSE_RIGHT 3
 # define MOUSE_SPED 0.02
 
-//# define M_PI 3.14159265358979323846
-
 typedef struct mlx
 {
 	void			*mlx_ptr;
 	void			*win;
-	void *img;       // Pointer to the image
-	char *addr;      // Address of the image data
-	int bpp;         // Bits per pixel
-	int line_length; // Number of bytes in a row
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_length;
 	int				endian;
-
 }					t_mlx_ptrs;
 
 typedef struct s_image_data
@@ -224,7 +233,12 @@ double				get_wall_height(t_player_info *player_infos,
 int					out_map(t_player_info *player_infos, int x, int y);
 
 //hdrahm part
-
+void				ft_draw_square(t_base *game, int x, int y, int color);
+int					get_color(t_base *game, int j, int i);
+void				draw_circle(t_base *game, double center_x, double center_y,
+						int radius);
+void				draw_direction(t_base *game, t_mini_range *mini_map_range,
+						double line_lenght, int color);
 void				do_the_magic(t_base *game);
 void				slide_on_the_wall(t_player_info *player_infos);
 void				update_angle(t_player_info *player_infos, int sign,
@@ -243,7 +257,7 @@ int					ray_angle_direction(t_player_info *player_infos);
 void				apply_values(t_player_info *player_infos, double jsteps,
 						double isteps, char c);
 void				rendering_3d(t_base *game);
-void				get_the_real_hit_point(player_infos);
+void				get_the_real_hit_point(t_player_info *player_infos);
 void				which_element(t_player_info *player_infos);
 void				find_inters_up_right_h(t_player_info *player_infos, int y,
 						int x);
@@ -267,9 +281,9 @@ void				find_inters_up(t_player_info *player_infos);
 void				find_inters_down(t_player_info *player_infos);
 void				my_mlx_pixel_put2(t_player_info *player_infos, int x, int y,
 						int color);
-void				find_nearest_wall_hit_down_left(t_player_info *player_infos);
+void				find_nearest_wal_hit_down_left(t_player_info *player_infos);
 void				find_nearest_wall_hit_up_right(t_player_info *player_infos);
-void				find_nearest_wall_hit_down_right(t_player_info *player_infos);
+void				find_nearest_wal_hit_dow_right(t_player_info *player_infos);
 void				find_nearest_wall_hit_up_left(t_player_info *player_infos);
 char				get_player_pos_and_dir(t_player_info *player_infos);
 int					game_loop(t_base *game);
