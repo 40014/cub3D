@@ -16,12 +16,12 @@
 # define SCREEN_SIZE 1600
 # define SCREEN_HEIGHT 1000
 # define FOV 60
-# define P_SPEED  6
+# define P_SPEED  4
 # define R_SPEED  2
 # define TILE_SIZE 32
 # define CELLS_RANGE 6
 # define COLOME_SIZE 1
-# define DIS_WALL 2
+# define DIS_WALL 4
 # define W_KEY        119
 # define S_KEY        115
 # define A_KEY        97
@@ -200,6 +200,7 @@ int out_map(t_player_info *player_infos, int x, int y);
 
 
 //hdrahm part
+void	slide_on_the_wall(t_player_info *player_infos);
 void update_angle(t_player_info *player_infos, int sign, double angle);
 void update_new_position(t_player_info *player_infos, int sign, double speed, double angle);
 double check_around_pos(t_player_info *player_infos, double *len_to_wall);
